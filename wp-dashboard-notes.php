@@ -38,17 +38,25 @@ class WP_Dashboard_Notes {
 		
 		wp_enqueue_script( 'wpdn_admin_js', plugin_dir_url( __FILE__ ) . 'assets/js/wpdn_admin.js' );
 		wp_enqueue_style( 'wpdn_admin_css', plugin_dir_url( __FILE__ ) . 'assets/css/wpdn_admin.css' );
+		wp_enqueue_script( 'jquery_ui', '//code.jquery.com/ui/1.10.4/jquery-ui.js' );
+		wp_enqueue_script( 'jquery', '//code.jquery.com/jquery-1.10.2.js' );
+		
+	}
+	
+	public function wpdn_get_notes() {
+		
+		return get_posts( array( 'posts_per_page' => '-1', 'post_type' => 'note' ) );
 		
 	}
 	
 	public function wpdn_add_dashboard_widget() {
 		
-		$notes = get_posts( array( 'posts_per_page' => '-1', 'post_type' => 'note' ) );
+		$notes = $this->wpdn_get_notes();
 		
 		foreach ( $notes as $note ) :
 			
 			wp_add_dashboard_widget(
-				$note->ID,
+				'note_' . $note->ID,
 				'<span contenteditable="true" class="wpdn-title">' . $note->post_title . '</span><div class="wpdn-edit-title dashicons dashicons-edit"></div>',
 				array( $this, 'wpdn_render_dashboard_widget' ),
 				'',
@@ -63,8 +71,9 @@ class WP_Dashboard_Notes {
 	public function wpdn_render_dashboard_widget( $post, $args ) {
 
 		$note = $args['args'];
-		$note_meta = get_post_meta( $note->ID, '_note_meta', true );
+		$note_color = get_post_meta( $note->ID, '_note_color', true );
 		?>
+		<style>#note_<?php echo $note->ID; ?> { background-color: <?php echo $note_color; ?>; }</style>
 		<div class='wp-dashboard-note-wrap'>
 		
 			<div class='wp-dashboard-note'>
@@ -96,12 +105,21 @@ class WP_Dashboard_Notes {
 							<div class="dashicons dashicons-trash"></div>
 						</span>
 
-						<span class='wpdn-add-note' title='<?php _e( 'Add new note', 'wp-dashboard-notes' ); ?>'>
+						<span class='wpdn-add-note' title='<?php _e( 'Add a new note', 'wp-dashboard-notes' ); ?>'>
 							<div class="dashicons dashicons-plus"></div>
 						</span>
 						
-						<span class='wpdn-color-note' title='<?php _e( 'Give it a color!', 'wp-dashboard-notes' ); ?>'>
-							<div class="dashicons dashicons-art"></div>
+						<span class='wpdn-color-note' title='<?php _e( 'Give me a color!', 'wp-dashboard-notes' ); ?>'>
+							<span class='wpdn-color-palette'>
+								<span class='color color-white' 	data-select-color='#ffffff'></span>
+								<span class='color color-red' 		data-select-color='#f7846a'></span>
+								<span class='color color-orange' 	data-select-color='#ffbd22'></span>
+								<span class='color color-yellow' 	data-select-color='#eeee22'></span>
+								<span class='color color-green' 	data-select-color='#bbe535'></span>
+								<span class='color color-blue' 		data-select-color='#66ccdd'></span>
+								<span class='color color-black' 	data-select-color='#777777'></span>
+							</span>
+							<div class="dashicons dashicons-art wpdn-note-color" data-note-color='<?php echo $note_color; ?>'></div>
 						</span>
 						
 					</span>
@@ -109,7 +127,16 @@ class WP_Dashboard_Notes {
 			</div>
 			
 		</div>
-		
+		<ul id="sortable">
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+</ul>
+ 
 		<?php
 				
 	}

@@ -10,7 +10,7 @@ jQuery( document ).ready( function($) {
 		if( e.keyCode == 13 && $( this ).val() != '' ) {
 
 			var post_id = $( this ).closest( ".postbox" ).attr( 'id' );
-			var list_item = '<div class="list-item"><input type="checkbox"><span class="list-item-content" contenteditable="true">' + $( this ).val() + '</span><div class="delete-item dashicons dashicons-no-alt"></div></div>';
+			var list_item = '<div class="list-item"><div class="dashicons dashicons-menu wpdn-note-sortable"></div><input type="checkbox"><span class="list-item-content" contenteditable="true">' + $( this ).val() + '</span><div class="delete-item dashicons dashicons-no-alt"></div></div>';
 			$( '#' + post_id + ' div.wp-dashboard-note' ).append( list_item );
 			$( this ).val( '' ); // Clear text field
 			
@@ -52,16 +52,17 @@ jQuery( document ).ready( function($) {
 	$( 'body' ).on( 'wpdn-update', function( event, t, post_id ) {
 
 		if ( t != '' ) {
-			var post_id = $( t ).closest( ".postbox" ).attr( 'id' );
+			post_id = $( t ).closest( ".postbox" ).attr( 'id' );
 		}
 		
 		$( '#' + post_id + ' .wp-dashboard-note-options .status' ).html( loading_icon ); 
 		var data = { 
 			action: 		'wpdn_update_note',
-			post_id: 		post_id,
+			post_id: 		post_id.replace( 'note_', '' ),
 			post_content: 	$( '#' + post_id + ' div.wp-dashboard-note' ).html(),
 			post_title: 	$( '#' + post_id + ' > h3 .wpdn-title' ).html(),
-			post_status:	$( '[data-visibility]' ).attr( 'data-visibility' )
+			post_status:	$( '[data-visibility]' ).attr( 'data-visibility' ),
+			note_color:		$( '[data-color]' ).attr( 'data-note-color' )
 		};
 
 		$.post( ajaxurl, data, function( response ) {
@@ -85,7 +86,7 @@ jQuery( document ).ready( function($) {
 		
 		var data = { 
 			action: 'wpdn_delete_note',
-			post_id: post_id,
+			post_id: post_id.replace( 'note_', '' ),
 		};
 
 		$.post( ajaxurl, data, function( response ) {
@@ -116,6 +117,14 @@ jQuery( document ).ready( function($) {
 		
 	});	
 	
+	// Change color
+	$( 'body' ).on( 'click', '.color', function() {
+		var color = $( this ).attr( 'data-select-color' );
+		$( this ).closest( ".postbox" ).css( 'background-color', color );
+		$( '[data-color]' ).attr( 'data-color', color );
+		$( this ).trigger( 'wpdn-update', this );
+	});
+	
 	
 	// Edit/update note
 	$( 'body' ).on( 'blur', '.list-item-content, [contenteditable=true]', function() {
@@ -139,7 +148,7 @@ jQuery( document ).ready( function($) {
 	});
 
 	
-	// Checkbox toggle
+	// Note checkbox toggle
 	$( 'input[type=checkbox]' ).change( function() {
 	    if( this.checked ) {
 	        $( this ).attr( 'checked', 'checked' );
@@ -148,5 +157,11 @@ jQuery( document ).ready( function($) {
 	    }
   		$( this ).trigger( 'wpdn-update', this );
     });
-	
+    	
+
+    // Make list sortable
+		
 });
+jQuery(function($) {
+    $( ".wp-dashboard-note" ).sortable({ handle: '.wpdn-note-sortable' });
+  });

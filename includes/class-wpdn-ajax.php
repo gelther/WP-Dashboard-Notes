@@ -24,7 +24,7 @@ class WPDN_Ajax {
 		// Update note
 		add_action( 'wp_ajax_wpdn_update_note', array( $this, 'wpdn_update_note' ) );
 		
-		// Note actions
+		// Add / Delete note
 		add_action( 'wp_ajax_wpdn_add_note', array( $this, 'wpdn_add_note' ) );
 		add_action( 'wp_ajax_wpdn_delete_note', array( $this, 'wpdn_delete_note' ) );
 		
@@ -40,9 +40,11 @@ class WPDN_Ajax {
 			'post_title' 	=> $_POST['post_title'],
 			'post_content' 	=> $_POST['post_content'],
 		);
-
+		
 		wp_update_post( $post );
-		// save data
+
+		update_post_meta( $_POST['post_id'], '_note_color', $_POST['note_color'] );
+
 		die();
 		
 	}

@@ -22,6 +22,18 @@ input[type=text].add-list-item {
 .wp-dashboard-note div:last-child {
 	border-bottom: 0;
 }
+
+/* Sortable */
+.wpdn-note-sortable {
+	color: #999;
+	margin-right: 5px;
+	cursor: move;
+	line-height: inherit;
+	opacity: 0;
+}
+.list-item:hover .wpdn-note-sortable {
+	opacity: 1;
+}
 .list-item .dashicons-no-alt {
 	color: #ccc;
 	text-align: right;
@@ -101,3 +113,45 @@ h3.hndle:hover .dashicons {
 .saving-icon {
 	color: #999;
 }
+
+
+/****************************
+ * Colors
+****************************/
+span.wpdn-color-note:hover .wpdn-color-palette {
+	display: inline-block;
+}
+.wpdn-color-palette {
+	min-width: 50px;
+	width: auto;
+	padding: 4px 8px 2px 8px;
+	margin-left: -8px;
+	position: absolute;
+	top: -24px;
+	background-color: rgba(76, 76, 76, 0.9);
+	height: 18px;
+	display: none;
+}
+
+.color {
+	width: 10px;
+	height: 10px;
+	border: 1px solid transparent;
+	margin: 2.5px;
+	display: inline-block;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+.color:hover {
+	border: 1px solid #ccc;	
+}
+.color-white { background-color: #ffffff; }
+.color-red { background-color: #f7846a; }
+.color-orange { background-color: #ffbd22; }
+.color-yellow { background-color: #eeee22; }
+.color-blue { background-color: #66ccdd; }
+.color-green { background-color: #bbe535; }
+.color-black { background-color: #777777; }
