@@ -62,6 +62,7 @@ jQuery( document ).ready( function($) {
 			post_content: 	$( '#' + post_id + ' div.wp-dashboard-note' ).html(),
 			post_title: 	$( '#' + post_id + ' > h3 .wpdn-title' ).html(),
 			post_status:	$( '[data-visibility]' ).attr( 'data-visibility' ),
+			note_color_text:$( '[data-color-text]' ).attr( 'data-color-text' ),
 			note_color:		$( '[data-note-color]' ).attr( 'data-note-color' )
 		};
 
@@ -119,9 +120,20 @@ jQuery( document ).ready( function($) {
 	
 	// Change color
 	$( 'body' ).on( 'click', '.color', function() {
+
+		// Set variables
 		var color = $( this ).attr( 'data-select-color' );
+		var color_text = $( this ).attr( 'data-select-color-text' );
+
+		// Preview
 		$( this ).closest( ".postbox" ).css( 'background-color', color );
-		$( '[data-note-color]' ).attr( 'data-note-color', color );
+		$( this ).closest( ".wp-dashboard-note-wrap" ).attr( 'data-color-text', color_text );
+		
+		// Set saving attributes
+		$( this ).closest( '[data-note-color]' ).attr( 'data-note-color', color );
+		$( this ).closest( '[data-color-text]' ).attr( 'data-color-text', color_text );
+		
+		// Update note
 		$( this ).trigger( 'wpdn-update', this );
 	});
 	

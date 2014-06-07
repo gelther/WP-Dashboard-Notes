@@ -14,10 +14,13 @@ input[type=text].add-list-item {
 	text-align: left;
 }
 .wp-dashboard-note .list-item {
-	border-bottom: 1px solid #ddd;
+	height: 30px;
 	width: 100%;
 	display: block;
+/*
+	border-bottom: 1px solid #ddd;
 	line-height: 300%;
+*/
 }
 .wp-dashboard-note div:last-child {
 	border-bottom: 0;
@@ -42,10 +45,15 @@ input[type=text].add-list-item {
 }
 .list-item input[type='checkbox'] {
 	margin-right: 15px;
+	background: transparent;
+	border-color: #555;
+}
+.list-item input[type=checkbox]:checked:before {
+	color: #555;
 }
 .list-item input[type='checkbox']:checked ~ span {
 	text-decoration:line-through;
-	color: #999;
+	color: #6f6f6f;
 }
 .list-item .dashicons-no-alt:hover {
 	color: #999;
@@ -56,10 +64,16 @@ input[type=text].add-list-item {
 .list-item .dashicons-no-alt {
 	display: none;
 }
-.wp-dashboard-note-wrap .dashicons {
+.wp-dashboard-note-wrap .wpdn-add-item {
 	line-height: 2;
 }
-
+.list-item .wpdn-add-item {
+	color: #ccc; 
+	margin-right: 8px;
+}
+.list-item-content {
+	line-height: 1;
+}
 
 .wp-dashboard-note-wrap:hover .wpdn-extra {
 	opacity: 1;
@@ -83,6 +97,9 @@ input[type=text].add-list-item {
 }
 .wpdn-extra *:hover {
 	color: #ccc;
+}
+.wpdn-extra .dashicons {
+	line-height: 2;
 }
 .wp-dashboard-note-wrap .dashicons {
 	-webkit-user-select: none;
@@ -155,3 +172,30 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 .color-blue { background-color: #66ccdd; }
 .color-green { background-color: #bbe535; }
 .color-black { background-color: #777777; }
+
+/****************************
+ * White
+****************************/
+
+
+/****************************
+ * Red
+****************************/
+[data-color-text=red] {
+	color: blue;
+}
+[data-color-text=red] .wpdn-note-sortable {
+	color: blue;
+}
+[data-color-text=red] .wpdn-add-item {
+	color: blue;
+}
+[data-color-text=red] .wp-dashboard-note .list-item {
+	border-color: blue;
+}
+[data-color-text=red] input[type=checkbox] {
+	border: 1px solid blue;
+}
+[data-color-text=red] .list-item input[type=checkbox]:checked ~ span {
+	color: blue;
+}
