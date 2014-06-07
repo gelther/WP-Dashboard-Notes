@@ -43,7 +43,10 @@ class WPDN_Ajax {
 		
 		wp_update_post( $post );
 
-		update_post_meta( $_POST['post_id'], '_note_color', $_POST['note_color'] );
+		$note_meta = array(
+			'color' => $_POST['note_color'],
+		);
+		update_post_meta( $_POST['post_id'], '_note', $note_meta );
 
 		die();
 		

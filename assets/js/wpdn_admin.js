@@ -62,7 +62,7 @@ jQuery( document ).ready( function($) {
 			post_content: 	$( '#' + post_id + ' div.wp-dashboard-note' ).html(),
 			post_title: 	$( '#' + post_id + ' > h3 .wpdn-title' ).html(),
 			post_status:	$( '[data-visibility]' ).attr( 'data-visibility' ),
-			note_color:		$( '[data-color]' ).attr( 'data-note-color' )
+			note_color:		$( '[data-note-color]' ).attr( 'data-note-color' )
 		};
 
 		$.post( ajaxurl, data, function( response ) {
@@ -121,7 +121,7 @@ jQuery( document ).ready( function($) {
 	$( 'body' ).on( 'click', '.color', function() {
 		var color = $( this ).attr( 'data-select-color' );
 		$( this ).closest( ".postbox" ).css( 'background-color', color );
-		$( '[data-color]' ).attr( 'data-color', color );
+		$( '[data-note-color]' ).attr( 'data-note-color', color );
 		$( this ).trigger( 'wpdn-update', this );
 	});
 	
