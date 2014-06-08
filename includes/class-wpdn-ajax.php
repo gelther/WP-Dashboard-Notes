@@ -23,6 +23,7 @@ class WPDN_Ajax {
 		
 		// Update note
 		add_action( 'wp_ajax_wpdn_update_note', array( $this, 'wpdn_update_note' ) );
+		add_action( 'wp_ajax_wpdn_toggle_note', array( $this, 'wpdn_toggle_note' ) );
 		
 		// Add / Delete note
 		add_action( 'wp_ajax_wpdn_add_note', array( $this, 'wpdn_add_note' ) );
@@ -47,6 +48,7 @@ class WPDN_Ajax {
 			'color' 		=> $_POST['note_color'],
 			'color_text' 	=> $_POST['note_color_text'],
 			'visibility' 	=> $_POST['note_visibility'],
+			'note_type' 	=> $_POST['note_type'],
 		);
 		update_post_meta( $_POST['post_id'], '_note', $note_meta );
 
@@ -54,6 +56,28 @@ class WPDN_Ajax {
 		
 	}
 	
+	
+	public function wpdn_toggle_note() {
+		
+		$note = get_post( $_POST['post_id'] );
+		$note_meta = get_post_meta( $note->ID, '_note', true );
+
+		?>
+		<style>
+			#note_<?php echo $note->ID; ?> { background-color: <?php echo $note_meta['color']; ?>; }
+			#note_<?php echo $note->ID; ?> .hndle { border: none; }
+		</style>
+		<?php
+		if ( $_POST['note_type'] == 'regular' ) :
+			require plugin_dir_path( __FILE__ ) . 'templates/note.php';
+		else :
+			require plugin_dir_path( __FILE__ ) . 'templates/note-list.php';		
+		endif;
+			
+		
+		die();
+		
+	}
 	
 	/* 
 	 * Delete note

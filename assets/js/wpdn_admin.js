@@ -1,23 +1,22 @@
 jQuery( document ).ready( function($) {
-
 	
 	var loading_icon = '<span class="saving-icon"><img src="/wp-admin/images/wpspin_light.gif"/> saving...</span>';
 	var saved_icon = '<span class="saved-icon"><div class="dashicons dashicons-yes"></div> saved!</span>';
 
 
 	// Add todo item
-	$( 'body, .list-item-content' ).on( 'keydown', '.add-list-item', function(e) {
+	$( 'body, .list-item-content' ).on( 'keydown', '.add-list-item', function( e ) {
 		if( e.keyCode == 13 && $( this ).val() != '' ) {
 
 			var post_id = $( this ).closest( ".postbox" ).attr( 'id' );
 			var list_item = '<div class="list-item"><div class="dashicons dashicons-menu wpdn-note-sortable"></div><input type="checkbox"><span class="list-item-content" contenteditable="true">' + $( this ).val() + '</span><div class="delete-item dashicons dashicons-no-alt"></div></div>';
 			$( '#' + post_id + ' div.wp-dashboard-note' ).append( list_item );
-			$( this ).val( '' ); // Clear text field
+			$( this ).val( '' ); // Clear 'add item' field
+			$( this ).trigger( 'note-sortable' );
 			
 			$( this ).trigger( 'wpdn-update', this );
 
 		}
-
 	});
 	
 	
@@ -47,6 +46,32 @@ jQuery( document ).ready( function($) {
 		
 	});
 	
+	// Toggle note type
+	$( 'body' ).on( 'click', '.wpdn-note-type', function() {
+		
+		$( this ).toggleClass( 'dashicons-list-view dashicons-welcome-write-blog' );
+		
+		var note_type = $( this ).closest( '[data-note-type]' ).attr( 'data-note-type' );
+		if ( note_type == 'regular' ) {
+			$( this ).closest( '[data-note-type]' ).attr( 'data-note-type', 'list' );
+		} else {
+			$( this ).closest( '[data-note-type]' ).attr( 'data-note-type', 'regular' );
+		}
+		
+		var data = { 
+			action: 	'wpdn_toggle_note',
+			post_id: 	$( this ).closest( ".postbox" ).attr( 'id' ).replace( 'note_', '' ),
+			note_type:	( note_type == 'regular' ? 'list' : 'regular' )
+		};
+
+		$.post( ajaxurl, data, function( response ) {
+			$( '#note_' + data.post_id + ' .inside' ).html( response );
+		});
+		
+		$( this ).trigger( 'wpdn-update', this );
+		
+	});
+	
 	
 	// Update note trigger
 	$( 'body' ).on( 'wpdn-update', function( event, t, post_id ) {
@@ -63,7 +88,8 @@ jQuery( document ).ready( function($) {
 			post_title: 	$( '#' + post_id + ' > h3 .wpdn-title' ).html(),
 			note_visibility:$( '#' + post_id + ' [data-visibility]' ).attr( 'data-visibility' ),
 			note_color_text:$( '#' + post_id + ' [data-color-text]' ).attr( 'data-color-text' ),
-			note_color:		$( '#' + post_id + ' [data-note-color]' ).attr( 'data-note-color' )
+			note_color:		$( '#' + post_id + ' [data-note-color]' ).attr( 'data-note-color' ),
+			note_type:		$( '#' + post_id + ' [data-note-type]' ).attr( 'data-note-type' )
 		};
 
 		$.post( ajaxurl, data, function( response ) {
@@ -109,14 +135,13 @@ jQuery( document ).ready( function($) {
 			jQuery( '#note_' + response.post_id + ' .add-list-item' ).focus();
 		});
 		
-		/*
-// Stop scrollTop animation on user scroll
+
+		// Stop scrollTop animation on user scroll
 		$( 'html, body' ).bind("scroll mousedown DOMMouseScroll mousewheel keyup", function( e ){
 			if ( e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
 				$( 'html, body' ).stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup');
 			}
 		});  
-*/
 		
 	});	
 	
@@ -144,10 +169,19 @@ jQuery( document ).ready( function($) {
 	$( 'body' ).on( 'blur', '.list-item-content, [contenteditable=true]', function() {
   		$( this ).trigger( 'wpdn-update', this );
 	});
-	// Don't allow enter in note
-	$( 'body' ).on( 'keydown', '[contenteditable=true]', function( e ) {
+	
+	// Save on enter (list note)
+	$( 'body' ).on( 'keydown', '[data-note-type=list]', function( e ) {
 	    if ( e.keyCode == 13 ) {
       		$( this ).trigger( 'wpdn-update', this );
+      		$( this ).blur();
+			return false;
+		}
+	});
+	// Save on CMD|CTRL + enter (regular note)
+	$( 'body' ).on( 'keydown', '[data-note-type=regular]', function( e ) {
+		if ( e.keyCode == 13 && ( e.ctrlKey || e.metaKey ) ) {
+			$( this ).trigger( 'wpdn-update', this );
       		$( this ).blur();
 			return false;
 		}
@@ -171,11 +205,19 @@ jQuery( document ).ready( function($) {
 	    }
   		$( this ).trigger( 'wpdn-update', this );
     });
-    	
+
 
     // Make list sortable
+    $( 'body' ).on( 'note-sortable', function() {
+		$( '.wp-dashboard-note' ).sortable({ 
+			handle: '.wpdn-note-sortable',
+			connectWith: '.wp-dashboard-note',
+			update: function( event, ui ) {
+				$( this ).trigger( 'wpdn-update', this );
+			}
+		}).disableSelection();
+	})
+	.trigger( 'note-sortable' );
+	
 		
 });
-jQuery(function($) {
-    $( ".wp-dashboard-note" ).sortable({ handle: '.wpdn-note-sortable' });
-  });

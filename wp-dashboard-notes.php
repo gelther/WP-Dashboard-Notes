@@ -78,14 +78,14 @@ class WP_Dashboard_Notes {
 
 		$note = $args['args'];
 		$note_meta = get_post_meta( $note->ID, '_note', true );
-		
+
 		?>
 		<style>
 			#note_<?php echo $note->ID; ?> { background-color: <?php echo $note_meta['color']; ?>; }
 			#note_<?php echo $note->ID; ?> .hndle { border: none; }
 		</style>
 		<?php
-		if ( $note_meta['type'] == 'note' ) :
+		if ( $note_meta['note_type'] == 'regular' ) :
 			require plugin_dir_path( __FILE__ ) . 'includes/templates/note.php';
 		else :
 			require plugin_dir_path( __FILE__ ) . 'includes/templates/note-list.php';		
