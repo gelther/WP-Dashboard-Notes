@@ -35,11 +35,11 @@ jQuery( document ).ready( function($) {
 		$( this ).toggleClass( 'dashicons-lock dashicons-groups' );
 		
 		var visibility = $( this ).parent().attr( 'data-visibility' );
-		if ( 'publish' == visibility ) {
+		if ( 'public' == visibility ) {
 			$( this ).parent( '.wpdn-toggle-visibility' ).attr( 'data-visibility', 'private' );
 			$( this ).parent( '.wpdn-toggle-visibility' ).attr( 'title', 'Visibility: Private' );
 		} else {
-			$( this ).parent( '.wpdn-toggle-visibility' ).attr( 'data-visibility', 'publish' );
+			$( this ).parent( '.wpdn-toggle-visibility' ).attr( 'data-visibility', 'public' );
 			$( this ).parent( '.wpdn-toggle-visibility' ).attr( 'title', 'Visibility: Public' );
 		}
 		
@@ -61,9 +61,9 @@ jQuery( document ).ready( function($) {
 			post_id: 		post_id.replace( 'note_', '' ),
 			post_content: 	$( '#' + post_id + ' div.wp-dashboard-note' ).html(),
 			post_title: 	$( '#' + post_id + ' > h3 .wpdn-title' ).html(),
-			post_status:	$( '[data-visibility]' ).attr( 'data-visibility' ),
-			note_color_text:$( '[data-color-text]' ).attr( 'data-color-text' ),
-			note_color:		$( '[data-note-color]' ).attr( 'data-note-color' )
+			note_visibility:$( '#' + post_id + ' [data-visibility]' ).attr( 'data-visibility' ),
+			note_color_text:$( '#' + post_id + ' [data-color-text]' ).attr( 'data-color-text' ),
+			note_color:		$( '#' + post_id + ' [data-note-color]' ).attr( 'data-note-color' )
 		};
 
 		$.post( ajaxurl, data, function( response ) {
@@ -104,17 +104,19 @@ jQuery( document ).ready( function($) {
 
 		$.post( ajaxurl, data, function( response ) {
 			response = jQuery.parseJSON( response );
-			jQuery( '#postbox-container-1 #normal-sortables' ).prepend( response.note );
-			jQuery( '#' + response.post_id + ' .add-list-item' ).focus();
-			$('body, html').animate({ scrollTop: $( "#" + response.post_id ).offset().top - 50 }, 750);
+			jQuery( '#postbox-container-1 #normal-sortables' ).append( response.note );
+			jQuery('body, html').animate({ scrollTop: $( "#note_" + response.post_id ).offset().top - 50 }, 750);
+			jQuery( '#note_' + response.post_id + ' .add-list-item' ).focus();
 		});
 		
-		// Stop scrollTop animation on user scroll
+		/*
+// Stop scrollTop animation on user scroll
 		$( 'html, body' ).bind("scroll mousedown DOMMouseScroll mousewheel keyup", function( e ){
 			if ( e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
 				$( 'html, body' ).stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup');
 			}
 		});  
+*/
 		
 	});	
 	
@@ -126,11 +128,11 @@ jQuery( document ).ready( function($) {
 		var color_text = $( this ).attr( 'data-select-color-text' );
 
 		// Preview
-		$( this ).closest( ".postbox" ).css( 'background-color', color );
-		$( this ).closest( ".wp-dashboard-note-wrap" ).attr( 'data-color-text', color_text );
+		$( this ).closest( '.postbox' ).css( 'background-color', color );
+		$( this ).closest( '.wp-dashboard-note-wrap' ).attr( 'data-color-text', color_text );
 		
 		// Set saving attributes
-		$( this ).closest( '[data-note-color]' ).attr( 'data-note-color', color );
+		$( '[data-note-color]' ).attr( 'data-note-color', color );
 		$( this ).closest( '[data-color-text]' ).attr( 'data-color-text', color_text );
 		
 		// Update note

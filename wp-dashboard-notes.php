@@ -55,6 +55,12 @@ class WP_Dashboard_Notes {
 		
 		foreach ( $notes as $note ) :
 			
+			$note_meta = get_post_meta( $note->ID, '_note', true );
+			$user = wp_get_current_user();
+			if ( 'private' == $note_meta['visibility'] && $user->ID != $note->post_author ) :
+				continue; // Skip if private
+			endif;
+
 			wp_add_dashboard_widget(
 				'note_' . $note->ID,
 				'<span contenteditable="true" class="wpdn-title">' . $note->post_title . '</span><div class="wpdn-edit-title dashicons dashicons-edit"></div>',
@@ -72,9 +78,12 @@ class WP_Dashboard_Notes {
 
 		$note = $args['args'];
 		$note_meta = get_post_meta( $note->ID, '_note', true );
-
+		
 		?>
-		<style>#note_<?php echo $note->ID; ?> { background-color: <?php echo $note_meta['color']; ?>; }</style>
+		<style>
+			#note_<?php echo $note->ID; ?> { background-color: <?php echo $note_meta['color']; ?>; }
+			#note_<?php echo $note->ID; ?> .hndle { border: none; }
+		</style>
 		<?php
 		if ( $note_meta['type'] == 'note' ) :
 			require plugin_dir_path( __FILE__ ) . 'includes/templates/note.php';

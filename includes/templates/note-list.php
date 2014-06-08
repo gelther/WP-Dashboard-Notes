@@ -11,14 +11,14 @@
 				<div class='wpdn-extra'>
 					<span class='wpdn-option-visibility'>
 						<?php 
-						if ( 'publish' == $note->post_status ) :
-							$status['icon'] 		= 'dashicons-groups';
-							$status['title'] 		= __( 'Public', 'wp-dashboard-notes' );
-							$status['visibility'] 	= 'publish';
-						elseif ( 'private' == $note->post_status ) :
+						if ( 'private' == $note_meta['visibility'] && $note_meta ) :
 							$status['icon'] 		= 'dashicons-lock';
 							$status['title'] 		= __( 'Private', 'wp-dashboard-notes' );
 							$status['visibility'] 	= 'private';
+						else :
+							$status['icon'] 		= 'dashicons-groups';
+							$status['title'] 		= __( 'Public', 'wp-dashboard-notes' );
+							$status['visibility'] 	= 'public';
 						endif; ?>
 						
 						<span class='wpdn-toggle-visibility' title='<?php __( 'Visibility:', 'wp-dashboard-notes' ); ?> <?php echo $status['title']; ?>' data-visibility='<?php echo $status['visibility']; ?>'>

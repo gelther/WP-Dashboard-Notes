@@ -46,6 +46,7 @@ class WPDN_Ajax {
 		$note_meta = array(
 			'color' 		=> $_POST['note_color'],
 			'color_text' 	=> $_POST['note_color_text'],
+			'visibility' 	=> $_POST['note_visibility'],
 		);
 		update_post_meta( $_POST['post_id'], '_note', $note_meta );
 
@@ -65,49 +66,24 @@ class WPDN_Ajax {
 			'post_title' 	=> __( 'New note', 'wp-dashboard-notes' ),
 		);
 		$post_id = wp_insert_post( $args );
+		$note_meta = array(
+			'color' 		=> '#ffffff',
+			'color_text' 	=> 'white',
+			'visibility' 	=> 'public',
+		);
+
 		
 		ob_start();
 		?>
-		<div id='<?php echo $post_id; ?>' class='postbox temp'>
+		<div id='note_<?php echo $post_id; ?>' class='postbox'>
 			<div class='handlediv' title='Click to toggle'><br></div>
 			
-			<h3 class='hndle'><span>ToDo list</span></h3>
+			<h3 class='hndle'>
+				<span contenteditable="true" class="wpdn-title">New note</span>
+				<div class="wpdn-edit-title dashicons dashicons-edit"></div>
+			</h3>
 				<div class='inside'>
-	
-					<div class='wp-dashboard-note-wrap'>
-					
-						<div class='wp-dashboard-note'>
-							
-						</div>
-				
-						<div class='wp-dashboard-note-options'>
-							<div class="dashicons dashicons-plus" style='color: #ccc; margin-right: 8px;'></div>
-							<input type='text' name='list_item' class='add-list-item' data-id='<?php echo $post_id; ?>' placeholder='<?php _e( 'List item', 'wp-dashboard-notes' ); ?>' value=''>
-							<span class='status'></span>
-							
-							<div class='wpdn-extra'>
-								<span class='wpdn-option-visibility'>
-			
-									<span class='wpdn-toggle-visibility' title='<?php __( 'Visibility:', 'wp-dashboard-notes' ); ?> Public' data-visibility='public'>
-										<span style='line-height: 40px;'>Visibility: </span><div class='wpdn-visibility visibility-publish dashicons dashicons-groups'></div>
-									</span>
-									
-									<span class='wpdn-delete-note' title='<?php _e( 'Delete note', 'wp-dashboard-notes' ); ?>'>
-										<div class='dashicons dashicons-trash'></div>
-									</span>
-			
-									<span class='wpdn-add-note' title='<?php _e( 'Add new note', 'wp-dashboard-notes' ); ?>'>
-										<div class='dashicons dashicons-plus'></div>
-									</span>
-									
-									<span class='wpdn-color-note' title='<?php _e( 'Give it a color!', 'wp-dashboard-notes' ); ?>'>
-										<div class='dashicons dashicons-art'></div>
-									</span>
-									
-								</span>
-							</div>
-						</div> <!-- .wp-dashboard-note-options -->
-					</div> <!-- .wp-dashboard-note-wrap -->
+					<?php require plugin_dir_path( __FILE__ ) . 'templates/note-list.php'; ?>
 				</div> <!-- .inside -->
 			</div> <!-- .postbox -->
 		<?php
