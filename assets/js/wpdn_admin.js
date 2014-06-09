@@ -65,9 +65,9 @@ jQuery( document ).ready( function($) {
 		};
 
 		$.post( ajaxurl, data, function( response ) {
-			$( '#note_' + data.post_id + ' .inside' ).html( response );
+			$( '#note_' + data.post_id + ' .inside' ).html( response ).trigger( 'note-sortable' );;
 		});
-		
+
 		$( this ).trigger( 'wpdn-update', this );
 		
 	});
@@ -171,7 +171,7 @@ jQuery( document ).ready( function($) {
 	});
 	
 	// Save on enter (list note)
-	$( 'body' ).on( 'keydown', '[data-note-type=list]', function( e ) {
+	$( 'body' ).on( 'keydown', '[data-note-type=list], .wpdn-title, .list-item-content', function( e ) {
 	    if ( e.keyCode == 13 ) {
       		$( this ).trigger( 'wpdn-update', this );
       		$( this ).blur();
@@ -179,7 +179,7 @@ jQuery( document ).ready( function($) {
 		}
 	});
 	// Save on CMD|CTRL + enter (regular note)
-	$( 'body' ).on( 'keydown', '[data-note-type=regular]', function( e ) {
+	$( 'body' ).on( 'keydown', '[data-note-type=regular] .wp-dashboard-note', function( e ) {
 		if ( e.keyCode == 13 && ( e.ctrlKey || e.metaKey ) ) {
 			$( this ).trigger( 'wpdn-update', this );
       		$( this ).blur();
@@ -189,7 +189,7 @@ jQuery( document ).ready( function($) {
 	
 	
 	// Edit title
-	$( '.postbox h3' ).on( 'click', 'div', function( e ) {
+	$( 'body, .postbox h3' ).on( 'click', '.wpdn-edit-title', function( e ) {
 		$( this ).prev().focus();
 		document.execCommand( 'selectAll', false, null );
 		e.stopPropagation();
@@ -211,11 +211,10 @@ jQuery( document ).ready( function($) {
     $( 'body' ).on( 'note-sortable', function() {
 		$( '.wp-dashboard-note' ).sortable({ 
 			handle: '.wpdn-note-sortable',
-			connectWith: '.wp-dashboard-note',
 			update: function( event, ui ) {
 				$( this ).trigger( 'wpdn-update', this );
 			}
-		}).disableSelection();
+		});
 	})
 	.trigger( 'note-sortable' );
 	

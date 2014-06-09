@@ -30,6 +30,7 @@ input[type=text].add-list-item:-ms-input-placeholder {
 }
 .wp-dashboard-note .list-item {
 	height: 30px;
+	line-height: 30px;
 	width: 100%;
 	display: block;
 /*
@@ -113,11 +114,14 @@ input[type=text].add-list-item:-ms-input-placeholder {
 	color: #ccc;
 	cursor: pointer;
 }
-.saved-icon .dashicons, 
+[data-note-type=list] .saved-icon .dashicons,
 .wpdn-extra .dashicons {
 	line-height: 2;
 }
-.wp-dashboard-note-wrap * {
+[data-note-type=regular] .saved-icon .dashicons {
+	line-height: 1;
+}
+.wp-dashboard-note-wrap *m {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;

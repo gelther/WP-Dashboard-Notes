@@ -101,14 +101,19 @@ class WPDN_Ajax {
 		?>
 		<div id='note_<?php echo $post_id; ?>' class='postbox'>
 			<div class='handlediv' title='Click to toggle'><br></div>
-			
-			<h3 class='hndle'>
-				<span contenteditable="true" class="wpdn-title">New note</span>
-				<div class="wpdn-edit-title dashicons dashicons-edit"></div>
+			<h3 class="hndle">
+				<span>
+					<span contenteditable="true" class="wpdn-title">New note</span>
+					<div class="wpdn-edit-title dashicons dashicons-edit"></div>
+				</span>
 			</h3>
-				<div class='inside'>
-					<?php require plugin_dir_path( __FILE__ ) . 'templates/note-list.php'; ?>
-				</div> <!-- .inside -->
+			
+			<div class='inside'>
+			<style>
+				#note_<?php echo $post_id; ?> .hndle { border: none; }
+			</style>
+				<?php require plugin_dir_path( __FILE__ ) . 'templates/note-list.php'; ?>
+			</div> <!-- .inside -->
 			</div> <!-- .postbox -->
 		<?php
 		$return['note'] 	= ob_get_clean();
