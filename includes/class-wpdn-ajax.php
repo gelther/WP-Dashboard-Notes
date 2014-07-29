@@ -1,23 +1,24 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 /**
  * Class WPDN_Ajax
  *
- * Initialize the AJAX funcitons
+ * Class to handle all AJAX calls.
  *
- * @class       WPDN AJAX
- * @author     	Jeroen Sormani
- * @package		WP Dashboard Notes
- * @version		1.0.0
+ * @class	WPDN_Ajax
+ * @version 1.0.0
+ * @package	WP Dashboard Notes
+ * @author	Jeroen Sormani
  */
-
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
 class WPDN_Ajax {
 
 
 	/* Construct.
 	 *
 	 * Add ajax actions in order to work.
+	 *
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 		
@@ -31,10 +32,13 @@ class WPDN_Ajax {
 		
 	}
 	
-	/* 
-	 * Update note
+	
+	/**
+	 * Update note.
+	 *
+	 * @since 1.0.0
 	 */
-	public function wpdn_update_note() {
+	 public function wpdn_update_note() {
 
 		$post = array(
 			'ID' 			=> $_POST['post_id'],
@@ -57,10 +61,17 @@ class WPDN_Ajax {
 	}
 	
 	
+	/**
+	 * Toggle note.
+	 *
+	 * Toggle note type, from 'regular note' to 'list note' or vice versa.
+	 *
+	 * @since 1.0.0
+	 */
 	public function wpdn_toggle_note() {
 		
-		$note = get_post( $_POST['post_id'] );
-		$note_meta = get_post_meta( $note->ID, '_note', true );
+		$note 		= get_post( $_POST['post_id'] );
+		$note_meta 	= WP_Dashboard_Notes::wpdn_get_note_meta( $note->ID );
 
 		?>
 		<style>
@@ -73,14 +84,16 @@ class WPDN_Ajax {
 		else :
 			require plugin_dir_path( __FILE__ ) . 'templates/note-list.php';		
 		endif;
-			
-		
+
 		die();
-		
+
 	}
 	
-	/* 
-	 * Delete note
+	
+	/**
+	 * Add new note.
+	 *
+	 * @since 1.0.0
 	 */
 	public function wpdn_add_note() {
 		
@@ -126,14 +139,17 @@ class WPDN_Ajax {
 	}
 
 	
-	/* 
-	 * Delete note
+	/**
+	 * Delete note.
+	 *
+	 * @since 1.0.0
 	 */
 	public function wpdn_delete_note() {
 		
 		$post_id = (int) $_POST['post_id'];
 		wp_delete_post( $post_id, false );
 		die();
+		
 	}
 
 

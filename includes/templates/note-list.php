@@ -40,7 +40,7 @@
 								<span class='color color-orange' data-select-color-text='orange'	data-select-color='#ffbd22'></span>
 								<span class='color color-yellow' data-select-color-text='yellow' 	data-select-color='#eeee22'></span>
 								<span class='color color-green'  data-select-color-text='green' 	data-select-color='#bbe535'></span>
-								<span class='color color-blue' 	 data-select-color-text='blue' 	data-select-color='#66ccdd'></span>
+								<span class='color color-blue' 	 data-select-color-text='blue' 		data-select-color='#66ccdd'></span>
 								<span class='color color-black'  data-select-color-text='black' 	data-select-color='#777777'></span>
 							</span>
 							<div class='dashicons dashicons-art wpdn-note-color' data-note-color='<?php echo $note_meta['color']; ?>'></div>

@@ -1,6 +1,6 @@
 jQuery( document ).ready( function($) {
 	
-	var loading_icon = '<span class="saving-icon"><img src="/wp-admin/images/wpspin_light.gif"/> saving...</span>';
+	var loading_icon = '<span class="saving-icon"><img src="images/wpspin_light.gif"/> saving...</span>';
 	var saved_icon = '<span class="saved-icon"><div class="dashicons dashicons-yes"></div> saved!</span>';
 
 

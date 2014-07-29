@@ -1,24 +1,23 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 /**
  * Class Note_Post_Type
  *
- * Initialize the 'note' post type
+ * Register and handle post type registration.
  *
  * @class       Note_Post_Type
- * @author     	Jeroen Sormani
+ * @version     1.0.0
  * @package		WP Dashboard Notes
- * @version		1.0.0
+ * @author      Jeroen Sormani
  */
-
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
 class Note_Post_Type {
 	
 	
 	/**
-	 * __construct functon.
+	 * __construct function.
 	 *
-	 * 
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 		 
@@ -28,7 +27,11 @@ class Note_Post_Type {
 	 
 	 
 	/**
-	 * Register 'Note' post type
+	 * Register post type.
+	 *
+	 * Register and set settings for post type 'note'.
+	 *
+	 * @since 1.0.0
 	 */
 	public function note_register_post_type() {
 		
@@ -60,9 +63,8 @@ class Note_Post_Type {
 		
 	}
 	
-	
 }
 
-global $note_post_type;
-$note_post_type = new Note_Post_Type();
+global $wpdn_post_type;
+$wpdn_post_type = new Note_Post_Type();
 
