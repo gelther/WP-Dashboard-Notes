@@ -12,24 +12,16 @@
 						<?php 
 						if ( 'private' == $note_meta['visibility'] && $note_meta ) :
 							$status['icon'] 		= 'dashicons-lock';
-							$status['title'] 		= __( 'Private', 'wp-dashboard-notes' );
+							$status['title'] 		= __( 'Just me', 'wp-dashboard-notes' );
 							$status['visibility'] 	= 'private';
 						else :
 							$status['icon'] 		= 'dashicons-groups';
-							$status['title'] 		= __( 'Public', 'wp-dashboard-notes' );
+							$status['title'] 		= __( 'Everyone', 'wp-dashboard-notes' );
 							$status['visibility'] 	= 'public';
 						endif; ?>
 						
-						<span class='wpdn-toggle-visibility' title='<?php __( 'Visibility:', 'wp-dashboard-notes' ); ?> <?php echo $status['title']; ?>' data-visibility='<?php echo $status['visibility']; ?>'>
-							<span style='line-height: 40px;'>Visibility: </span><div class='wpdn-visibility visibility-publish dashicons <?php echo $status['icon']; ?>'></div>
-						</span>
-						
-						<span class='wpdn-delete-note' title='<?php _e( 'Delete note', 'wp-dashboard-notes' ); ?>'>
-							<div class='dashicons dashicons-trash'></div>
-						</span>
-
-						<span class='wpdn-add-note' title='<?php _e( 'Add a new note', 'wp-dashboard-notes' ); ?>'>
-							<div class='dashicons dashicons-plus'></div>
+						<span class='wpdn-toggle-visibility' title='<?php _e( 'Visibility:', 'wp-dashboard-notes' ); ?> <?php echo $status['title']; ?>' data-visibility='<?php echo $status['visibility']; ?>'>
+							<div class='wpdn-visibility visibility-publish dashicons <?php echo $status['icon']; ?>'></div>
 						</span>
 						
 						<span class='wpdn-color-note' title='<?php _e( 'Give me a color!', 'wp-dashboard-notes' ); ?>'>
@@ -47,6 +39,14 @@
 						
 						<span title='<?php _e( 'Make me a list!', 'wp-dashboard-notes'); ?>'>
 							<div class='wpdn-note-type dashicons dashicons-welcome-write-blog'></div>
+						</span>
+
+						<span class='wpdn-add-note' title='<?php _e( 'Add a new note', 'wp-dashboard-notes' ); ?>'>
+							<div class='dashicons dashicons-plus'></div>
+						</span>
+
+						<span style='float: right; margin-right: 10px;' class='wpdn-delete-note' title='<?php _e( 'Delete note', 'wp-dashboard-notes' ); ?>'>
+							<div class='dashicons dashicons-trash'></div>
 						</span>
 	
 					</span>

@@ -28,15 +28,15 @@ input[type=text].add-list-item:-ms-input-placeholder {
 .wp-dashboard-note-options {
 	text-align: left;
 }
+.list-note .wp-dashboard-note-options {
+	margin-top: 15px;
+}
+
 .wp-dashboard-note .list-item {
-	height: 30px;
+	min-height: 30px;
 	line-height: 30px;
 	width: 100%;
 	display: block;
-/*
-	border-bottom: 1px solid #ddd;
-	line-height: 300%;
-*/
 }
 .wp-dashboard-note div:last-child {
 	border-bottom: 0;
@@ -44,7 +44,7 @@ input[type=text].add-list-item:-ms-input-placeholder {
 
 /* Sortable */
 .wpdn-note-sortable {
-	color: #999;
+	color: #6f6f6f;
 	margin-right: 5px;
 	cursor: move;
 	line-height: inherit;
@@ -102,7 +102,7 @@ input[type=text].add-list-item:-ms-input-placeholder {
 	left: 0;
 	bottom: 0;
 	height: 40px;
-	padding-left: 20px;
+	padding-left: 12px;
 	box-sizing: border-box;
 	-webkit-transition: opacity 0.3s ease-in-out;
 	transition: opacity 0.2s ease-in-out;
@@ -118,10 +118,13 @@ input[type=text].add-list-item:-ms-input-placeholder {
 .wpdn-extra .dashicons {
 	line-height: 2;
 }
+.wpdn-extra .dashicons {
+	margin-left: 5px;
+}
 [data-note-type=regular] .saved-icon .dashicons {
 	line-height: 1;
 }
-.wp-dashboard-note-wrap *m {
+.wp-dashboard-note-wrap * {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
@@ -135,11 +138,16 @@ input[type=text].add-list-item:-ms-input-placeholder {
 h3.hndle .dashicons {
 	display: none;
 	height: 19px;
-	color: #999;
+	color: #222;
 	cursor: pointer;
+	margin-left: 5px;
 }
 h3.hndle:hover .dashicons {
 	display: inline-block;
+}
+[id^=note_] .handlediv {
+	color: #222;
+	color: transparent;
 }
 
 /* Saving */
@@ -148,9 +156,29 @@ h3.hndle:hover .dashicons {
 }
 .saved-icon,
 .saving-icon {
-	color: #999;
+	color: #222;
 }
 
+/* Add button screen options */
+[for=add_note-hide] {
+	float: right;
+	padding-left: 10px;
+	margin-left: 2px;
+}
+[for=add_note-hide] input {
+	display: none;
+}
+[for=add_note-hide]::before {
+	content: "\f132";
+	font-family: dashicons;
+	vertical-align: middle;
+	font-size: 18px;
+	margin-right: 5px;
+}
+[for=add_note-hide]:hover {
+	color: #fff;
+	background: #333;
+}
 
 /****************************
  * Colors
@@ -184,6 +212,7 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 }
 .color:hover {
 	border: 1px solid #ccc;	
+	cursor: pointer;
 }
 .color-white { background-color: #ffffff; }
 .color-red { background-color: #f7846a; }
@@ -194,28 +223,95 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 .color-black { background-color: #777777; }
 
 /****************************
- * White
+ * Black
 ****************************/
+[data-color-text=black] {
+	color: white;
+}
+[data-color-text=black] .wpdn-note-sortable {
+	color: white;
+}
+[data-color-text=black] .wpdn-add-item {
+	color: white;
+}
+[data-color-text=black] .wp-dashboard-note .list-item {
+	border-color: white;
+}
+[data-color-text=black] input[type=checkbox] {
+	border: 1px solid white;
+}
+[data-color-text=black] .list-item input[type=checkbox]:checked ~ span {
+	color: white;
+}
+[data-color-text=black] [id^=note] .handlediv {
+	color: white;
+}
+[data-color-text=black] input[type=text].add-list-item {
+	border-color: #FFF;
+	color: #FFF;
+	background: rgba(255, 255, 255, 0.3);
+}
+[data-color-text=black] input[type=text].add-list-item::-webkit-input-placeholder {
+   color: white;
+}
+[data-color-text=black] input[type=text].add-list-item:-moz-placeholder {
+   color: white;
+}
+[data-color-text=black] input[type=text].add-list-item::-moz-placeholder {
+   color: white; 
+}
+[data-color-text=black] input[type=text].add-list-item:-ms-input-placeholder {  
+   color: white;
+}
+[data-color-text=black] .saved-icon,
+[data-color-text=black] .saving-icon {
+	color: white;
+}
+
 
 
 /****************************
- * Red
+ * Template
 ****************************/
-[data-color-text=red] {
-	color: blue;
+[data-color-text=template] {
+	color: inherit;
 }
-[data-color-text=red] .wpdn-note-sortable {
-	color: blue;
+[data-color-text=template] .wpdn-note-sortable {
+	color: inherit;
 }
-[data-color-text=red] .wpdn-add-item {
-	color: blue;
+[data-color-text=template] .wpdn-add-item {
+	color: inherit;
 }
-[data-color-text=red] .wp-dashboard-note .list-item {
-	border-color: blue;
+[data-color-text=template] .wp-dashboard-note .list-item {
+	border-color: inherit;
 }
-[data-color-text=red] input[type=checkbox] {
-	border: 1px solid blue;
+[data-color-text=template] input[type=checkbox] {
+	border: 1px solid inherit;
 }
-[data-color-text=red] .list-item input[type=checkbox]:checked ~ span {
-	color: blue;
+[data-color-text=template] .list-item input[type=checkbox]:checked ~ span {
+	color: inherit;
+}
+[data-color-text=template] [id^=note] .handlediv {
+	color: inherit;
+}
+[data-color-text=template] input[type=text].add-list-item {
+	border-color: inherit;
+	color: inherit;
+	background: inherit;
+}
+[data-color-text=template] input[type=text].add-list-item::-webkit-input-placeholder {
+   color: inherit;
+}
+[data-color-text=template] input[type=text].add-list-item:-moz-placeholder {
+   color: inherit;
+}
+[data-color-text=template] input[type=text].add-list-item::-moz-placeholder {
+   color: inherit; 
+}
+[data-color-text=template] input[type=text].add-list-item:-ms-input-placeholder {  
+   color: inherit;
+}
+[data-color-text=template] .saved-icon,
+[data-color-text=template] .saving-icon {
+	color: inherit;
 }

@@ -11,6 +11,14 @@ Text Domain: wp-dashboard-notes
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+add_filter( 'manage_dashboard_columns', 'dashboard_columsn' );
+function dashboard_columsn( $columns ) {
+	
+	$columns['add_note'] = 'Add note';
+	return $columns;
+	
+}
+
 /**
  * Class WP_Dashboard_Notes
  *

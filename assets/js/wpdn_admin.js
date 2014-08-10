@@ -36,10 +36,10 @@ jQuery( document ).ready( function($) {
 		var visibility = $( this ).parent().attr( 'data-visibility' );
 		if ( 'public' == visibility ) {
 			$( this ).parent( '.wpdn-toggle-visibility' ).attr( 'data-visibility', 'private' );
-			$( this ).parent( '.wpdn-toggle-visibility' ).attr( 'title', 'Visibility: Private' );
+			$( this ).parent( '.wpdn-toggle-visibility' ).attr( 'title', 'Visibility: Just me' );
 		} else {
 			$( this ).parent( '.wpdn-toggle-visibility' ).attr( 'data-visibility', 'public' );
-			$( this ).parent( '.wpdn-toggle-visibility' ).attr( 'title', 'Visibility: Public' );
+			$( this ).parent( '.wpdn-toggle-visibility' ).attr( 'title', 'Visibility: Everyone' );
 		}
 		
 		$( this ).trigger( 'wpdn-update', this );
@@ -124,7 +124,7 @@ jQuery( document ).ready( function($) {
 	
 	
 	// Add note
-	$( 'body' ).on( 'click', '.wpdn-add-note', function() {
+	$( 'body' ).on( 'click', '.wpdn-add-note, [for=add_note-hide]', function() {
 
 		var data = { action: 'wpdn_add_note' };
 

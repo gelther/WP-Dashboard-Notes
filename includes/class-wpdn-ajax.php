@@ -102,11 +102,12 @@ class WPDN_Ajax {
 			'post_type' 	=> 'note',
 			'post_title' 	=> __( 'New note', 'wp-dashboard-notes' ),
 		);
-		$post_id = wp_insert_post( $args );
-		$note_meta = array(
+		$post_id 	= wp_insert_post( $args );
+		$note 		= (object) array( 'post_content' => '' );
+		$note_meta	= array(
 			'color' 		=> '#ffffff',
 			'color_text' 	=> 'white',
-			'visibility' 	=> 'public',
+			'visibility' 	=> 'Everyone',
 		);
 
 		
@@ -147,7 +148,7 @@ class WPDN_Ajax {
 	public function wpdn_delete_note() {
 		
 		$post_id = (int) $_POST['post_id'];
-		wp_delete_post( $post_id, false );
+		wp_trash_post( $post_id );
 		die();
 		
 	}
