@@ -47,6 +47,7 @@ You could change the colors by overriding the style from another stylesheet. If 
 
 1. WordPress dashboard example
 2. Add note button
+3. Normal white note
 
 == Changelog ==
 
