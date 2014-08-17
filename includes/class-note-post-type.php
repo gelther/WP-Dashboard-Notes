@@ -12,20 +12,20 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @author      Jeroen Sormani
  */
 class Note_Post_Type {
-	
-	
+
+
 	/**
 	 * __construct function.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		 
+
 		 $this->note_register_post_type();
-		 
+
 	 }
-	 
-	 
+
+
 	/**
 	 * Register post type.
 	 *
@@ -34,7 +34,7 @@ class Note_Post_Type {
 	 * @since 1.0.0
 	 */
 	public function note_register_post_type() {
-		
+
 		$labels = array(
 		    'name' 					=> __( 'Notes', 'wp-dashboard-notes' ),
 			'singular_name' 		=> __( 'Note', 'wp-dashboard-notes' ),
@@ -50,21 +50,20 @@ class Note_Post_Type {
 
 		register_post_type( 'note', array(
 			'label' 				=> 'note',
-			'show_ui' 				=> true,
-			'show_in_menu' 			=> true,
+			'show_ui' 				=> false,
+			'show_in_menu' 			=> false,
 			'capability_type' 		=> 'post',
 			'map_meta_cap' 			=> true,
-			'rewrite' 				=> array( 'slug' => 'notes', 'with_front' => true ),
+			'rewrite' 				=> array( 'slug' => 'notes' ),
 			'_builtin' 				=> false,
 			'query_var' 			=> true,
 			'supports' 				=> array( 'title', 'editor' ),
 			'labels' 				=> $labels,
 		) );
-		
+
 	}
-	
+
 }
 
 global $wpdn_post_type;
 $wpdn_post_type = new Note_Post_Type();
-

@@ -15,9 +15,9 @@ input[type=text].add-list-item:-moz-placeholder {
    color: #555;
 }
 input[type=text].add-list-item::-moz-placeholder {
-   color: #555; 
+   color: #555;
 }
-input[type=text].add-list-item:-ms-input-placeholder {  
+input[type=text].add-list-item:-ms-input-placeholder {
    color: #555;
 }
 
@@ -58,6 +58,7 @@ input[type=text].add-list-item:-ms-input-placeholder {
 	text-align: right;
 	float: right;
 	cursor: pointer;
+	line-height: inherit;
 }
 .list-item input[type=checkbox] {
 	margin-right: 15px;
@@ -84,7 +85,7 @@ input[type=text].add-list-item:-ms-input-placeholder {
 	line-height: 2;
 }
 .list-item .wpdn-add-item {
-	color: #ccc; 
+	color: #ccc;
 	margin-right: 8px;
 }
 .list-item-content {
@@ -179,6 +180,10 @@ h3.hndle:hover .dashicons {
 	color: #fff;
 	background: #333;
 }
+/* Hide pencil at screen options titles */
+.metabox-prefs .wpdn-edit-title.dashicons-edit {
+	display: none;
+}
 
 /****************************
  * Colors
@@ -211,7 +216,7 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 	user-select: none;
 }
 .color:hover {
-	border: 1px solid #ccc;	
+	border: 1px solid #ccc;
 	cursor: pointer;
 }
 .color-white { background-color: #ffffff; }
@@ -258,9 +263,9 @@ span.wpdn-color-note:hover .wpdn-color-palette {
    color: white;
 }
 [data-color-text=black] input[type=text].add-list-item::-moz-placeholder {
-   color: white; 
+   color: white;
 }
-[data-color-text=black] input[type=text].add-list-item:-ms-input-placeholder {  
+[data-color-text=black] input[type=text].add-list-item:-ms-input-placeholder {
    color: white;
 }
 [data-color-text=black] .saved-icon,
@@ -306,9 +311,9 @@ span.wpdn-color-note:hover .wpdn-color-palette {
    color: inherit;
 }
 [data-color-text=template] input[type=text].add-list-item::-moz-placeholder {
-   color: inherit; 
+   color: inherit;
 }
-[data-color-text=template] input[type=text].add-list-item:-ms-input-placeholder {  
+[data-color-text=template] input[type=text].add-list-item:-ms-input-placeholder {
    color: inherit;
 }
 [data-color-text=template] .saved-icon,
