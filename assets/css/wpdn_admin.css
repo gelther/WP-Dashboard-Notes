@@ -21,6 +21,10 @@ input[type=text].add-list-item:-ms-input-placeholder {
    color: #555;
 }
 
+.wp-dashboard-note {
+	line-height: 1.5;
+	font-size: 14px;
+}
 .wp-dashboard-note-wrap {
 	padding-bottom: 40px;
 }

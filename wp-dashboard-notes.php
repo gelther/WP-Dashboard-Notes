@@ -71,7 +71,7 @@ class WP_Dashboard_Notes {
 	public function wpdn_admin_enqueue_scripts() {
 
 		// Javascript
-		wp_enqueue_script( 'wpdn_admin_js', plugin_dir_url( __FILE__ ) . 'assets/js/wpdn_admin.js', array( 'jquery' ) );
+		wp_enqueue_script( 'wpdn_admin_js', plugin_dir_url( __FILE__ ) . 'assets/js/wpdn_admin.js', array( 'jquery', 'jqueryui' ) );
 
 		// Stylesheet
 		wp_enqueue_style( 'wpdn_admin_css', plugin_dir_url( __FILE__ ) . 'assets/css/wpdn_admin.css', array( 'dashicons' ) );
@@ -194,12 +194,18 @@ class WP_Dashboard_Notes {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param 	array $columns 	Array of columns within the screen options tab.
-	 * @return 	array			Array of columns within the screen options tab.
+	 * @global 	object 	$current_screen	Information about current screen.
+	 *
+	 * @param 	array 	$columns 		Array of columns within the screen options tab.
+	 * @return 	array					Array of columns within the screen options tab.
 	 */
 	public function wpdn_dashboard_columns( $columns ) {
 
-		$columns['add_note'] = __( 'Add note', 'wp-dashboard-notes' );
+		global $current_screen;
+		
+		if ( $current_screen->id ) :
+			$columns['add_note'] = __( 'Add note', 'wp-dashboard-notes' );
+		endif;
 		return $columns;
 
 	}
