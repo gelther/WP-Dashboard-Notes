@@ -3,7 +3,7 @@
 Plugin Name: WP Dashboard Notes
 Plugin URI: http://www.jeroensormani.com
 Description: Working with multiple persons on a website? Want to make notes? You can do just that with WP Dashboard Notes. Create beautiful notes with a nice user experience.
-Version: 1.0.0
+Version: 1.0.1
 Author: Jeroen Sormani
 Author URI: http://www.jeroensormani.com
 Text Domain: wp-dashboard-notes
@@ -42,6 +42,9 @@ class WP_Dashboard_Notes {
 
 		// Add note button
 		add_filter( 'manage_dashboard_columns', array( $this, 'wpdn_dashboard_columns' ) );
+
+		// Load textdomain
+		load_plugin_textdomain( 'wp-dashboard-notes', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 	}
 

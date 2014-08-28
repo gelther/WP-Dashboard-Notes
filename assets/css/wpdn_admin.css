@@ -129,16 +129,13 @@ input[type=text].add-list-item:-ms-input-placeholder {
 [data-note-type=regular] .saved-icon .dashicons {
 	line-height: 1;
 }
-.wp-dashboard-note-wrap * {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	user-select: none;
-}
-
 .hndle span {
 	cursor: text;
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	-o-user-select: text;
+	user-select: text;
 }
 h3.hndle .dashicons {
 	display: none;
@@ -213,11 +210,6 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 	border: 1px solid transparent;
 	margin: 2.5px;
 	display: inline-block;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	user-select: none;
 }
 .color:hover {
 	border: 1px solid #ccc;
