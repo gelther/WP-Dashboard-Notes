@@ -4,7 +4,7 @@ Donate link: http://www.jeroensormani.com/donate/
 Tags: note, notes, dashboard notes, wordpress notes, admin note, private note, post it, notification, admin notification, collaboratin, workflow
 Requires at least: 3.8
 Tested up to: 3.9.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -51,11 +51,13 @@ You could change the colors by overriding the style from another stylesheet. If 
 
 == Changelog ==
 
+= 1.0.2 = 29/08/2014
+* Fix - Safari compatibility issues
+
 = 1.0.1 = 28/08/2014
 * Added ‚jquery-ui-sortable’ dependency
 	* Fixed sub-menu not showing up
 * Add check at js update note function
-
 
 = 1.0.0 = 18/08/2014
 * Initial release
