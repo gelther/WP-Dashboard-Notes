@@ -86,6 +86,10 @@ jQuery( document ).ready( function($) {
 		if ( t != '' ) {
 			post_id = $( t ).closest( ".postbox" ).attr( 'id' );
 		}
+		
+		if ( ! post_id ) {
+			return;
+		}
 
 		$( '#' + post_id + ' .wp-dashboard-note-options .status' ).html( loading_icon );
 		var data = {
