@@ -3,8 +3,8 @@ Contributors: sormano
 Donate link: http://www.jeroensormani.com/donate/
 Tags: note, notes, dashboard notes, wordpress notes, admin note, private note, post it, notification, admin notification, collaboratin, workflow
 Requires at least: 3.8
-Tested up to: 3.9.2
-Stable tag: 1.0.2
+Tested up to: 4.0.0
+Stable tag: 1.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,6 +37,94 @@ A new note can be added in two ways.
 
 You could change the colors by overriding the style from another stylesheet. If you need help with this, ask in the support forums.
 
+= How can I add my own colors? =
+
+Add the following code to your functions.php, you can change the values of course to your own colors.
+
+Required:
+`
+add_filter( 'wpdn_colors', 'wpdn_add_purple' );
+function wpdn_add_purple( $colors ) {
+	
+	$colors['purple'] = '#5236A0';
+	
+	return $colors;
+	
+}
+`
+
+*Optional:*
+You can add the following code for extra styling (e.g. light text instead of dark)
+`
+add_action( 'admin_head', 'wpdn_add_style' );
+function wpdn_add_style() {
+	
+	?><style>
+	
+		/****************************
+		 * purple
+		****************************/
+		[data-color-text=purple] {
+			color: white;
+		}
+		[data-color-text=purple] .wpdn-note-sortable {
+			color: inherit;
+		}
+		[data-color-text=purple] .wpdn-add-item {
+			color: inherit;
+		}
+		[data-color-text=purple] .wp-dashboard-note .list-item {
+			border-color: inherit;
+		}
+		
+		[data-color-text=purple] .list-item input[type=checkbox] {
+			border: 1px solid white !important;
+		}
+		
+		[data-color-text=purple] .list-item input[type=checkbox]:checked ~ span {
+			color: white;
+		}
+		/* Unused for now */
+		[data-color-text=purple] [id^=note] .handlediv {
+			color: inherit;
+		}
+		/* Add list item input colors */
+		[data-color-text=purple] input[type=text].add-list-item {
+			border-color: white;
+			color: inherit;
+			background: inherit;
+		}
+		/* Placeholder text color */
+		[data-color-text=purple] input[type=text].add-list-item::-webkit-input-placeholder {
+		   color: white;
+		}
+		[data-color-text=purple] input[type=text].add-list-item:-moz-placeholder {
+		   color: white;
+		}
+		[data-color-text=purple] input[type=text].add-list-item::-moz-placeholder {
+		   color: white;
+		}
+		[data-color-text=purple] input[type=text].add-list-item:-ms-input-placeholder {
+		   color: white;
+		}
+		/* Saved/saving text color */
+		[data-color-text=purple] .saved-icon,
+		[data-color-text=purple] .saving-icon {
+			color: inherit;
+		}
+		/* Delete icon */
+		[data-color-text=purple] .list-item .dashicons-no-alt {
+			color: white;
+		}
+		/* Sort icon */
+		[data-color-text=purple] .wpdn-note-sortable {
+			color: white;
+		}
+	</style><?php
+	
+}
+`
+
 == Installation ==
 
 1. Upload the folder `wp-dashboard-notes` to the `/wp-content/plugins/` directory.
@@ -50,6 +138,12 @@ You could change the colors by overriding the style from another stylesheet. If 
 3. Normal white note
 
 == Changelog ==
+
+= 1.0.3 = 21/09/2014
+* Feature - Add your own colors
+* Feature - URLs are automatically clickable (after page refresh)
+* Improvement - Better 
+* Improvement - New icon for Personal visibility
 
 = 1.0.2 = 29/08/2014
 * Fix - Safari compatibility issues

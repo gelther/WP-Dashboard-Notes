@@ -3,9 +3,9 @@
 Plugin Name: WP Dashboard Notes
 Plugin URI: http://www.jeroensormani.com
 Description: Working with multiple persons on a website? Want to make notes? You can do just that with WP Dashboard Notes. Create beautiful notes with a nice user experience.
-Version: 1.0.2
+Version: 1.0.3
 Author: Jeroen Sormani
-Author URI: http://www.jeroensormani.com
+Author URI: http://www.jeroensormani.com/
 Text Domain: wp-dashboard-notes
 */
 
@@ -25,6 +25,15 @@ class WP_Dashboard_Notes {
 
 
 	/**
+	 * Plugin version number
+	 *
+	 * @since 1.0.3
+	 * @var string $version Plugin version number.
+	 */
+	public $version = '1.0.3';
+
+
+	/**
 	 * __construct function.
 	 *
 	 * @since 1.0.0
@@ -39,6 +48,9 @@ class WP_Dashboard_Notes {
 
 		// Enqueue scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'wpdn_admin_enqueue_scripts' ) );
+		
+		// Make URLs clickable
+		add_action( 'wpdn_content', array( $this, 'wpdn_clickable_url' ) );
 
 		// Add note button
 		add_filter( 'manage_dashboard_columns', array( $this, 'wpdn_dashboard_columns' ) );
@@ -74,10 +86,10 @@ class WP_Dashboard_Notes {
 	public function wpdn_admin_enqueue_scripts() {
 
 		// Javascript
-		wp_enqueue_script( 'wpdn_admin_js', plugin_dir_url( __FILE__ ) . 'assets/js/wpdn_admin.js', array( 'jquery', 'jquery-ui-sortable' ) );
+		wp_enqueue_script( 'wpdn_admin_js', plugin_dir_url( __FILE__ ) . 'assets/js/wpdn_admin.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version );
 
 		// Stylesheet
-		wp_enqueue_style( 'wpdn_admin_css', plugin_dir_url( __FILE__ ) . 'assets/css/wpdn_admin.css', array( 'dashicons' ) );
+		wp_enqueue_style( 'wpdn_admin_css', plugin_dir_url( __FILE__ ) . 'assets/css/wpdn_admin.css', array( 'dashicons' ), $this->version );
 
 	}
 
@@ -170,9 +182,19 @@ class WP_Dashboard_Notes {
 	 * @param array 	$args Extra arguments.
 	 */
 	public function wpdn_render_dashboard_widget( $post, $args ) {
-
+		
 		$note		= $args['args'];
 		$note_meta 	= $this->wpdn_get_note_meta( $note->ID );
+		$content	= apply_filters( 'wpdn_content', $note->post_content );
+		$colors		= apply_filters( 'wpdn_colors', array(
+			'white' 	=> '#fff',
+			'red'		=> '#f7846a',
+			'orange' 	=> '#ffbd22',
+			'yellow'	=> '#eeee22',
+			'green' 	=> '#bbe535',
+			'blue' 		=> '#66ccdd',
+			'black' 	=> '#777777',
+		) );
 
 		// Inline styling required for note depending colors.
 		?><style>
@@ -186,6 +208,29 @@ class WP_Dashboard_Notes {
 			require plugin_dir_path( __FILE__ ) . 'includes/templates/note-list.php';
 		endif;
 
+	}
+	
+	
+	/**
+	 * Clickable URL.
+	 *
+	 * Filter note content to make links clickable.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param 	string 	$content 	Original content.
+	 * @return 	string				Edited content.
+	 */
+	public function wpdn_clickable_url( $content ) {
+		
+		$regex = '/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/';
+		
+		$content = preg_replace("/(?<!a href=\")(?<!src=\")((http|ftp)+(s)?:\/\/[^<>\s]+)/i",
+    "<a href=\"\\0\" contenteditable=\"false\" target=\"blank\">\\0</a>", $content );
+
+		
+		return $content;
+		
 	}
 
 

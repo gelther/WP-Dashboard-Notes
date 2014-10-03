@@ -1,18 +1,18 @@
 		<div class='wp-dashboard-note-wrap list-note' data-note-type='list' data-color-text='<?php echo $note_meta['color_text']; ?>'>
 
 			<div class='wp-dashboard-note'>
-				<?php echo $note->post_content; ?>
+				<?php echo $content; ?>
 			</div>
 
 			<div class='wp-dashboard-note-options'>
 				<div class='dashicons dashicons-plus wpdn-add-item'></div>
-				<input type='text' name='list_item' class='add-list-item' data-id='<?php echo $note->ID; ?>' placeholder='<?php _e( 'List item', 'wp-dashboard-notes' ); ?>' value=''>
+				<input type='text' name='list_item' class='add-list-item' data-id='<?php echo $note->ID; ?>' placeholder='<?php _e( 'List item', 'wp-dashboard-notes' ); ?>'>
 				<span class='status'></span>
 				<div class='wpdn-extra'>
 					<span class='wpdn-option-visibility'>
 						<?php
 						if ( 'private' == $note_meta['visibility'] && $note_meta ) :
-							$status['icon'] 		= 'dashicons-lock';
+							$status['icon'] 		= 'dashicons-admin-users';
 							$status['title'] 		= __( 'Just me', 'wp-dashboard-notes' );
 							$status['visibility'] 	= 'private';
 						else :
@@ -27,13 +27,11 @@
 
 						<span class='wpdn-color-note' title='<?php _e( 'Give me a color!', 'wp-dashboard-notes' ); ?>'>
 							<span class='wpdn-color-palette'>
-								<span class='color color-white'	 data-select-color-text='white' 	data-select-color='#ffffff'></span>
-								<span class='color color-red' 	 data-select-color-text='red' 		data-select-color='#f7846a'></span>
-								<span class='color color-orange' data-select-color-text='orange'	data-select-color='#ffbd22'></span>
-								<span class='color color-yellow' data-select-color-text='yellow' 	data-select-color='#eeee22'></span>
-								<span class='color color-green'  data-select-color-text='green' 	data-select-color='#bbe535'></span>
-								<span class='color color-blue' 	 data-select-color-text='blue' 		data-select-color='#66ccdd'></span>
-								<span class='color color-black'  data-select-color-text='black' 	data-select-color='#777777'></span>
+								
+								<?php foreach ( $colors as $name => $color ) : ?>
+									<span class='color color-<?php echo $name;?>' data-select-color-text='<?php echo $name; ?>'	data-select-color='<?php echo $color; ?>' style='background-color: <?php echo $color; ?>'></span>
+								<?php endforeach; ?>
+
 							</span>
 							<div class='dashicons dashicons-art wpdn-note-color' data-note-color='<?php echo $note_meta['color']; ?>'></div>
 						</span>

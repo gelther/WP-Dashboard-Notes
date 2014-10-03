@@ -74,6 +74,7 @@ class WPDN_Ajax {
 	public function wpdn_toggle_note() {
 
 		$note 		= get_post( $_POST['post_id'] );
+		$content	= apply_filters( 'wpdn_content', $note->post_content );
 		$note_meta 	= WP_Dashboard_Notes::wpdn_get_note_meta( $note->ID );
 
 		?>

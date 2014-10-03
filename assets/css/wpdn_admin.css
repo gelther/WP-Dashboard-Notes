@@ -58,7 +58,7 @@ input[type=text].add-list-item:-ms-input-placeholder {
 	opacity: 1;
 }
 .list-item .dashicons-no-alt {
-	color: #ccc;
+	color: rgba( 0, 0, 0, 0.3 );
 	text-align: right;
 	float: right;
 	cursor: pointer;
