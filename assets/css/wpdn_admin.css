@@ -152,6 +152,27 @@ h3.hndle:hover .dashicons {
 	color: transparent;
 }
 
+/* Open Link */
+.wp-dashboard-note-wrap a {
+	position: relative;
+}
+.wp-dashboard-note-wrap :focus {
+	outline: none;
+}
+.link-hover {
+	background: rgba(76, 76, 76, 0.9);
+	position: absolute;
+	left: 0px;
+	top: 100%;
+	padding: 5px;
+	border-radius: 4px;
+	font-size: 12px;
+	z-index: 99;
+}
+.link-hover a {
+	color: white;
+}
+
 /* Saving */
 .saving-icon img {
 	vertical-align: middle;

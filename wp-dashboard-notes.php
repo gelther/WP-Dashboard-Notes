@@ -48,7 +48,7 @@ class WP_Dashboard_Notes {
 
 		// Enqueue scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'wpdn_admin_enqueue_scripts' ) );
-		
+
 		// Make URLs clickable
 		add_action( 'wpdn_content', array( $this, 'wpdn_clickable_url' ) );
 
@@ -106,7 +106,7 @@ class WP_Dashboard_Notes {
 	public function wpdn_get_notes() {
 
 		$notes = get_posts( array( 'posts_per_page' => '-1', 'post_type' => 'note' ) );
-		
+
 		return apply_filters( 'wpdn_notes', $notes );
 
 	}
@@ -182,7 +182,7 @@ class WP_Dashboard_Notes {
 	 * @param array 	$args Extra arguments.
 	 */
 	public function wpdn_render_dashboard_widget( $post, $args ) {
-		
+
 		$note		= $args['args'];
 		$note_meta 	= $this->wpdn_get_note_meta( $note->ID );
 		$content	= apply_filters( 'wpdn_content', $note->post_content );
@@ -209,8 +209,8 @@ class WP_Dashboard_Notes {
 		endif;
 
 	}
-	
-	
+
+
 	/**
 	 * Clickable URL.
 	 *
@@ -222,15 +222,9 @@ class WP_Dashboard_Notes {
 	 * @return 	string				Edited content.
 	 */
 	public function wpdn_clickable_url( $content ) {
-		
-		$regex = '/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/';
-		
-		$content = preg_replace("/(?<!a href=\")(?<!src=\")((http|ftp)+(s)?:\/\/[^<>\s]+)/i",
-    "<a href=\"\\0\" contenteditable=\"false\" target=\"blank\">\\0</a>", $content );
 
-		
-		return $content;
-		
+		return make_clickable( $content );
+
 	}
 
 
@@ -250,7 +244,7 @@ class WP_Dashboard_Notes {
 	public function wpdn_dashboard_columns( $columns ) {
 
 		global $current_screen;
-		
+
 		if ( $current_screen->id ) :
 			$columns['add_note'] = __( 'Add note', 'wp-dashboard-notes' );
 		endif;

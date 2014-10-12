@@ -45,11 +45,11 @@ Required:
 `
 add_filter( 'wpdn_colors', 'wpdn_add_purple' );
 function wpdn_add_purple( $colors ) {
-	
+
 	$colors['purple'] = '#5236A0';
-	
+
 	return $colors;
-	
+
 }
 `
 
@@ -58,9 +58,9 @@ You can add the following code for extra styling (e.g. light text instead of dar
 `
 add_action( 'admin_head', 'wpdn_add_style' );
 function wpdn_add_style() {
-	
+
 	?><style>
-	
+
 		/****************************
 		 * purple
 		****************************/
@@ -76,11 +76,11 @@ function wpdn_add_style() {
 		[data-color-text=purple] .wp-dashboard-note .list-item {
 			border-color: inherit;
 		}
-		
+
 		[data-color-text=purple] .list-item input[type=checkbox] {
 			border: 1px solid white !important;
 		}
-		
+
 		[data-color-text=purple] .list-item input[type=checkbox]:checked ~ span {
 			color: white;
 		}
@@ -121,7 +121,7 @@ function wpdn_add_style() {
 			color: white;
 		}
 	</style><?php
-	
+
 }
 `
 
@@ -140,9 +140,9 @@ function wpdn_add_style() {
 == Changelog ==
 
 = 1.0.3 = 21/09/2014
-* Feature - Add your own colors
-* Feature - URLs are automatically clickable (after page refresh)
-* Improvement - Better 
+* Add - *beta* URLs are automatically clickable (after page refresh)
+* Improvement - Add filters to add your own colors
+* Improvement - Small improvements for coloring
 * Improvement - New icon for Personal visibility
 
 = 1.0.2 = 29/08/2014
