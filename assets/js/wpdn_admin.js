@@ -220,12 +220,14 @@ jQuery( document ).ready( function($) {
 			handle: '.wpdn-note-sortable',
 			update: function( event, ui ) {
 				$( this ).trigger( 'wpdn-update', this );
-			}
+			},
+			axis: 'y'
 		});
 	})
 	.trigger( 'note-sortable' );
 
 
+	// Open link box when hovering a link
 	$( '.wp-dashboard-note-wrap a' ).hover( function() {
 
 		var url = $( this ).attr( 'href' );
