@@ -75,6 +75,15 @@ class WPDN_Ajax {
 
 		$note 		= get_post( $_POST['post_id'] );
 		$content	= apply_filters( 'wpdn_content', $note->post_content );
+		$colors		= apply_filters( 'wpdn_colors', array(
+			'white' 	=> '#fff',
+			'red'		=> '#f7846a',
+			'orange' 	=> '#ffbd22',
+			'yellow'	=> '#eeee22',
+			'green' 	=> '#bbe535',
+			'blue' 		=> '#66ccdd',
+			'black' 	=> '#777777',
+		) );
 		$note_meta 	= WP_Dashboard_Notes::wpdn_get_note_meta( $note->ID );
 
 		?>
@@ -138,6 +147,7 @@ class WPDN_Ajax {
 				<span>
 					<span contenteditable="true" class="wpdn-title"><?php _e( 'New note', 'wp-dashboard-notes' ); ?></span>
 					<div class="wpdn-edit-title dashicons dashicons-edit"></div>
+					<span class="status"></span>
 				</span>
 			</h3>
 
