@@ -37,7 +37,7 @@ jQuery( document ).ready( function($) {
 	// Toggle visibility
 	$( 'body' ).on( 'click', '.wpdn-visibility', function() {
 
-		$( this ).toggleClass( 'dashicons-lock dashicons-groups' );
+		$( this ).toggleClass( 'dashicons-admin-users dashicons-groups' );
 
 		var visibility = $( this ).parent().attr( 'data-visibility' );
 		if ( 'public' == visibility ) {
