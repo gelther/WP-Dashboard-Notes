@@ -109,7 +109,7 @@ class WPDN_Ajax {
 			'post_title' 	=> __( 'New note', 'wp-dashboard-notes' ),
 		);
 		$post_id = wp_insert_post( $args );
-		
+
 		$note 		= (object) array( 'post_content' => '' );
 		$note_meta	= array(
 			'color' 		=> '#ffffff',
@@ -117,11 +117,12 @@ class WPDN_Ajax {
 			'visibility' 	=> 'Everyone',
 			'note_type' 	=> 'list',
 		);
-		$note_meta = apply_filters( 'wpdn_new_note_meta', $note_meta );
+		$content	= apply_filters( 'wpdn_content', $note->post_content );
+		$note_meta 	= apply_filters( 'wpdn_new_note_meta', $note_meta );
 		update_post_meta( $post_id, '_note', $note_meta );
 
 		ob_start(); ?>
-		
+
 		<div id='note_<?php echo $post_id; ?>' class='postbox'>
 			<div class='handlediv' title='Click to toggle'><br></div>
 			<h3 class="hndle">
@@ -132,17 +133,17 @@ class WPDN_Ajax {
 			</h3>
 
 			<div class='inside'>
-			
+
 			<style>
 				#note_<?php echo $post_id; ?> .hndle { border: none; }
 			</style>
-			
+
 				<?php if ( 'regular' == $note_meta['note_type'] ) :
 					require plugin_dir_path( __FILE__ ) . 'templates/note.php';
 				else :
 					require plugin_dir_path( __FILE__ ) . 'templates/note-list.php';
 				endif; ?>
-				
+
 			</div> <!-- .inside -->
 		</div> <!-- .postbox -->
 
