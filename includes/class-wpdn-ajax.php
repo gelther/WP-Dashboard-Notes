@@ -118,6 +118,15 @@ class WPDN_Ajax {
 			'note_type' 	=> 'list',
 		);
 		$content	= apply_filters( 'wpdn_content', $note->post_content );
+		$colors		= apply_filters( 'wpdn_colors', array(
+			'white' 	=> '#fff',
+			'red'		=> '#f7846a',
+			'orange' 	=> '#ffbd22',
+			'yellow'	=> '#eeee22',
+			'green' 	=> '#bbe535',
+			'blue' 		=> '#66ccdd',
+			'black' 	=> '#777777',
+		) );
 		$note_meta 	= apply_filters( 'wpdn_new_note_meta', $note_meta );
 		update_post_meta( $post_id, '_note', $note_meta );
 
