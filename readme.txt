@@ -139,11 +139,14 @@ function wpdn_add_style() {
 
 == Changelog ==
 
-= 1.0.3.1 = 19/10/2014
+= 1.0.4 = 19/10/2014
 
 * Fix - Notice on WP_DEBUG mode when creating new note
 * Fix - Wrong visibility icon when switching
+* Fix - Displaying colors on new notes/after switching
 * Improvement - Drag list items only vertically
+* Improvement - Move savig/saved icon to title bar
+*
 
 = 1.0.3 = 12/10/2014
 

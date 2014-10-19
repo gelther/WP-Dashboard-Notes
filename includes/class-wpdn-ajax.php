@@ -119,13 +119,13 @@ class WPDN_Ajax {
 		);
 		$post_id = wp_insert_post( $args );
 
-		$note 		= (object) array( 'post_content' => '' );
-		$note_meta	= array(
+		$note 		= (object) array( 'ID' => $post_id, 'post_content' => '' );
+		$note_meta	= apply_filters( 'wpdn_new_note_meta', array(
 			'color' 		=> '#ffffff',
 			'color_text' 	=> 'white',
 			'visibility' 	=> 'Everyone',
 			'note_type' 	=> 'list',
-		);
+		) );
 		$content	= apply_filters( 'wpdn_content', $note->post_content );
 		$colors		= apply_filters( 'wpdn_colors', array(
 			'white' 	=> '#fff',
@@ -154,6 +154,7 @@ class WPDN_Ajax {
 			<div class='inside'>
 
 			<style>
+				#note_<?php echo $post_id; ?> { background-color: <?php echo $note_meta['color']; ?>; }
 				#note_<?php echo $post_id; ?> .hndle { border: none; }
 			</style>
 
