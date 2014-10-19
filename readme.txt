@@ -13,14 +13,15 @@ Working with multiple persons on a website? Want to make notes? You can do just 
 == Description ==
 Working with multiple persons on a website? Want to make notes? You can do just that with WP Dashboard Notes. Create beautiful notes with a nice user experience.
 
-Features:
+**Features:**
+
 * Colored notes
 * List notes or regular notes
 * Public or private notes
 * Edit on dashboard
 * Add as many notes as you like
 * Drag & drop list items
-* No save button!
+* No save button needed!
 
 **Feature requests, ratings and donations are welcome and appreciated!**
 
