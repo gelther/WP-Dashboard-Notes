@@ -137,7 +137,7 @@ input[type=text].add-list-item:-ms-input-placeholder {
 	-o-user-select: text;
 	user-select: text;
 }
-h3.hndle .dashicons {
+h3.hndle .wpdn-edit-title {
 	display: none;
 	height: 19px;
 	color: #222;
@@ -174,12 +174,17 @@ h3.hndle:hover .dashicons {
 }
 
 /* Saving */
+.hndle .status {
+	float: right;
+}
 .saving-icon img {
 	vertical-align: middle;
 }
 .saved-icon,
 .saving-icon {
 	color: #222;
+	font-weight: normal;
+	font-size: 13px;
 }
 
 /* Add button screen options */

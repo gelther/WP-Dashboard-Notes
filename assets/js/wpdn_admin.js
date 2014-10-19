@@ -91,7 +91,7 @@ jQuery( document ).ready( function($) {
 			return;
 		}
 
-		$( '#' + post_id + ' .wp-dashboard-note-options .status' ).html( loading_icon );
+		$( '#' + post_id + ' .hndle .status' ).html( loading_icon );
 		var data = {
 			action: 			'wpdn_update_note',
 			post_id: 			post_id.replace( 'note_', '' ),
@@ -104,8 +104,8 @@ jQuery( document ).ready( function($) {
 		};
 
 		$.post( ajaxurl, data, function( response ) {
-			$( '#' + post_id + ' .wp-dashboard-note-options .status' ).html( saved_icon );
-			$( '#' + post_id + ' .wp-dashboard-note-options .status *' ).fadeOut( 1000, function() { $( this ).html( '' ) });
+			$( '#' + post_id + ' .hndle .status' ).html( saved_icon );
+			$( '#' + post_id + ' .hndle .status *' ).fadeOut( 1000, function() { $( this ).html( '' ) });
 		});
 
 	});
