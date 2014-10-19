@@ -160,7 +160,7 @@ class WP_Dashboard_Notes {
 			// Add widget
 			wp_add_dashboard_widget(
 				'note_' . $note->ID,
-				'<span contenteditable="true" class="wpdn-title">' . $note->post_title . '</span><div class="wpdn-edit-title dashicons dashicons-edit"></div>',
+				'<span contenteditable="true" class="wpdn-title">' . $note->post_title . '</span><div class="wpdn-edit-title dashicons dashicons-edit"></div><span class="status"></span>',
 				array( $this, 'wpdn_render_dashboard_widget' ),
 				'',
 				$note

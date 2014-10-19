@@ -139,19 +139,29 @@ function wpdn_add_style() {
 
 == Changelog ==
 
-= 1.0.3 = 21/09/2014
+= 1.0.3.1 = 19/10/2014
+
+* Fix - Notice on WP_DEBUG mode when creating new note
+* Fix - Wrong visibility icon when switching
+* Improvement - Drag list items only vertically
+
+= 1.0.3 = 12/10/2014
+
 * Add - *beta* URLs are automatically clickable (after page refresh)
 * Improvement - Add filters to add your own colors
 * Improvement - Small improvements for coloring
 * Improvement - New icon for Personal visibility
 
 = 1.0.2 = 29/08/2014
+
 * Fix - Safari compatibility issues
 
 = 1.0.1 = 28/08/2014
+
 * Added ‚jquery-ui-sortable’ dependency
-	* Fixed sub-menu not showing up
+* Fixed sub-menu not showing up
 * Add check at js update note function
 
 = 1.0.0 = 18/08/2014
+
 * Initial release
