@@ -80,10 +80,10 @@ input[type=text].add-list-item:-ms-input-placeholder {
 	color: #999;
 }
 .list-item:hover .dashicons-no-alt {
-	display: block;
+	visibility: visible;
 }
 .list-item .dashicons-no-alt {
-	display: none;
+	visibility: hidden;
 }
 .wp-dashboard-note-wrap .wpdn-add-item {
 	line-height: 2;
