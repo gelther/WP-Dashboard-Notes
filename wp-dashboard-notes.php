@@ -30,7 +30,7 @@ class WP_Dashboard_Notes {
 	 * @since 1.0.3
 	 * @var string $version Plugin version number.
 	 */
-	public $version = '1.0.3';
+	public $version = '1.0.4';
 
 
 	/**
