@@ -1,9 +1,9 @@
 === WP Dashboard Notes ===
 Contributors: sormano
 Donate link: http://www.jeroensormani.com/donate/
-Tags: note, notes, dashboard notes, wordpress notes, admin note, private note, post it, notification, admin notification, collaboratin, workflow
+Tags: note, notes, dashboard notes, wordpress notes, admin note, private note, post it, notification, collaboration, workflow, to do list, note list, note widget
 Requires at least: 3.8
-Tested up to: 4.0.0
+Tested up to: 4.1
 Stable tag: 1.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -63,7 +63,7 @@ function wpdn_add_style() {
 	?><style>
 
 		/****************************
-		 * purple
+		 * purple
 		****************************/
 		[data-color-text=purple] {
 			color: white;
@@ -140,7 +140,7 @@ function wpdn_add_style() {
 
 == Changelog ==
 
-= 1.0.4 = 19/10/2014
+= 1.0.4 - 19/10/2014 =
 
 * Fix - Notice on WP_DEBUG mode when creating new note
 * Fix - Wrong visibility icon when switching
@@ -149,23 +149,23 @@ function wpdn_add_style() {
 * Improvement - Move savig/saved icon to title bar
 *
 
-= 1.0.3 = 12/10/2014
+= 1.0.3 - 12/10/2014 =
 
 * Add - *beta* URLs are automatically clickable (after page refresh)
 * Improvement - Add filters to add your own colors
 * Improvement - Small improvements for coloring
 * Improvement - New icon for Personal visibility
 
-= 1.0.2 = 29/08/2014
+= 1.0.2 - 29/08/2014 =
 
 * Fix - Safari compatibility issues
 
-= 1.0.1 = 28/08/2014
+= 1.0.1 - 28/08/2014 =
 
 * Added ‚jquery-ui-sortable’ dependency
 * Fixed sub-menu not showing up
 * Add check at js update note function
 
-= 1.0.0 = 18/08/2014
+= 1.0.0 - 18/08/2014 =
 
 * Initial release
