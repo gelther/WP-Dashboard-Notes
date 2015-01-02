@@ -15,13 +15,14 @@ class Note_Post_Type {
 
 
 	/**
-	 * __construct function.
+	 * Constructor.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct() {
 
-		 $this->note_register_post_type();
+		// Register post type
+		add_action( 'init', array( $this, 'register_post_type' ) );
 
 	 }
 
@@ -33,7 +34,7 @@ class Note_Post_Type {
 	 *
 	 * @since 1.0.0
 	 */
-	public function note_register_post_type() {
+	public function register_post_type() {
 
 		$labels = array(
 		    'name' 					=> __( 'Notes', 'wp-dashboard-notes' ),
@@ -65,5 +66,5 @@ class Note_Post_Type {
 
 }
 
-global $wpdn_post_type;
-$wpdn_post_type = new Note_Post_Type();
+// Backwards compatibility
+$GLOBALS['wpdn_post_type'] = WP_Dashboard_Notes()->post_type;

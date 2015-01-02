@@ -34,17 +34,94 @@ class WP_Dashboard_Notes {
 
 
 	/**
-	 * __construct function.
+	 * Plugin file.
+	 *
+	 * @since 1.0.0
+	 * @var string $file Plugin file path.
+	 */
+	public $file = __FILE__;
+
+
+	/**
+	 * Instace of WP_Job_Manager_Reviews.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 * @var object $instance The instance of WPJMR.
+	 */
+	private static $instance;
+
+
+	/**
+	 * Constructor.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct() {
 
+		// Init plugin parts
+		$this->init();
+
+		$this->hooks();
+
+	}
+
+
+	/**
+	 * Instance.
+	 *
+	 * An global instance of the class. Used to retrieve the instance
+	 * to use on other files/plugins/themes.
+	 *
+	 * @since 1.0.0
+	 * @return object Instance of the class.
+	 */
+	public static function instance() {
+
+		if ( is_null( self::$instance ) ) :
+			self::$instance = new self();
+		endif;
+
+		return self::$instance;
+
+	}
+
+
+	/**
+	 * Init.
+	 *
+	 * Initiate plugin parts.
+	 *
+	 * @since 1.0.5
+	 */
+	public function init() {
+
+		/**
+		 * Post type class.
+		 */
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-note-post-type.php';
+		$this->post_type = new Note_Post_Type();
+
+		/**
+		 * AJAX class.
+		 */
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpdn-ajax.php';
+		$this->ajax = new WPDN_Ajax();
+
+	}
+
+
+	/**
+	 * Hooks.
+	 *
+	 * Init actions and filters.
+	 *
+	 * @since 1.0.5
+	 */
+	public function hooks() {
+
 		// Add dashboard widget
 		add_action( 'wp_dashboard_setup', array( $this, 'wpdn_init_dashboard_widget' ) );
-
-		// Register post type
-		add_action( 'init', array( $this, 'wpdn_register_post_type' ) );
 
 		// Enqueue scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'wpdn_admin_enqueue_scripts' ) );
@@ -57,21 +134,6 @@ class WP_Dashboard_Notes {
 
 		// Load textdomain
 		load_plugin_textdomain( 'wp-dashboard-notes', false, basename( dirname( __FILE__ ) ) . '/languages' );
-
-	}
-
-
-	/**
-	 * Register post type.
-	 *
-	 * @since 1.0.0
-	 */
-	public function wpdn_register_post_type() {
-
-		/**
-		 * Post type class.
-		 */
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-note-post-type.php';
 
 	}
 
@@ -254,11 +316,29 @@ class WP_Dashboard_Notes {
 
 
 }
+
+
 /**
- * AJAX class.
+ * The main function responsible for returning the WP_Dashboard_Notes object.
+ *
+ * Use this function like you would a global variable, except without needing to declare the global.
+ *
+ * Example: <?php WP_Dashboard_Notes()->method_name(); ?>
+ *
+ * @since 1.0.0
+ *
+ * @return object WP_Dashboard_Notes class object.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpdn-ajax.php';
+if ( ! function_exists( 'WP_Dashboard_Notes' ) ) :
+
+ 	function WP_Dashboard_Notes() {
+		return WP_Dashboard_Notes::instance();
+	}
+
+endif;
+
+WP_Dashboard_Notes();
 
 
-global $wp_dashboard_notes;
-$wp_dashboard_notes = new WP_Dashboard_Notes();
+// Backwards compatibility
+$GLOBALS['wp_dashboard_notes'] = WP_Dashboard_Notes();

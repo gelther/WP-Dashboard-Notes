@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * Class WPDN_Ajax
+ * Class WPDN_Ajax.
  *
  * Class to handle all AJAX calls.
  *
@@ -15,7 +15,7 @@ class WPDN_Ajax {
 
 
 	/**
-	 * Construct function.
+	 * Constructor.
 	 *
 	 * Add ajax actions.
 	 *
@@ -195,5 +195,3 @@ class WPDN_Ajax {
 
 
 }
-new WPDN_Ajax();
-?>
