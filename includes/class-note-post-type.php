@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * Class Note_Post_Type
+ * Class Note_Post_Type.
  *
  * Register and handle post type registration.
  *

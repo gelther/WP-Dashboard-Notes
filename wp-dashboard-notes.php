@@ -1,12 +1,13 @@
 <?php
 /*
-Plugin Name: WP Dashboard Notes
-Plugin URI: http://www.jeroensormani.com
-Description: Working with multiple persons on a website? Want to make notes? You can do just that with WP Dashboard Notes. Create beautiful notes with a nice user experience.
-Version: 1.0.4
-Author: Jeroen Sormani
-Author URI: http://www.jeroensormani.com/
-Text Domain: wp-dashboard-notes
+ * Plugin Name: 	WP Dashboard Notes
+ * Plugin URI: 		http://www.jeroensormani.com
+ * Donate link: 	http://www.jeroensormani.com/donate/
+ * Description: 	Working in a team? Want to make notes? You can do just that with WP Dashboard Notes. Create beautiful notes with a nice user experience.
+ * Version: 		1.0.4
+ * Author: 			Jeroen Sormani
+ * Author URI: 		http://www.jeroensormani.com/
+ * Text Domain: 	wp-dashboard-notes
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -43,11 +44,11 @@ class WP_Dashboard_Notes {
 
 
 	/**
-	 * Instace of WP_Job_Manager_Reviews.
+	 * Instace of WP_Dashboard_Note.
 	 *
 	 * @since 1.0.0
 	 * @access private
-	 * @var object $instance The instance of WPJMR.
+	 * @var object $instance The instance of WP_Dashboard_Notes.
 	 */
 	private static $instance;
 
