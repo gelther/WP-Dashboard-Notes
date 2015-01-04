@@ -14,9 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! is_admin() ) return; // Only load plugin when user is in admin
 
 /**
- * Class WP_Dashboard_Notes
+ * Class WP_Dashboard_Notes.
  *
- * Main WPDN class initializes the plugin
+ * Main WPDN class initializes the plugin.
  *
  * @class		WP_Dashboard_Notes
  * @version		1.0.0
@@ -75,6 +75,7 @@ class WP_Dashboard_Notes {
 	 * to use on other files/plugins/themes.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @return object Instance of the class.
 	 */
 	public static function instance() {
@@ -164,7 +165,7 @@ class WP_Dashboard_Notes {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Array of all published notes.
+	 * @return Array List of all published notes.
 	 */
 	public function wpdn_get_notes() {
 
