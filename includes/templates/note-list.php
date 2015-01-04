@@ -12,13 +12,13 @@
 					<span class='wpdn-option-visibility'>
 						<?php
 						if ( 'private' == $note_meta['visibility'] && $note_meta ) :
-							$status['icon'] 		= 'dashicons-admin-users';
-							$status['title'] 		= __( 'Just me', 'wp-dashboard-notes' );
-							$status['visibility'] 	= 'private';
+							$status['icon']			= 'dashicons-admin-users';
+							$status['title']		= __( 'Just me', 'wp-dashboard-notes' );
+							$status['visibility']	= 'private';
 						else :
-							$status['icon'] 		= 'dashicons-groups';
-							$status['title'] 		= __( 'Everyone', 'wp-dashboard-notes' );
-							$status['visibility'] 	= 'public';
+							$status['icon']			= 'dashicons-groups';
+							$status['title']		= __( 'Everyone', 'wp-dashboard-notes' );
+							$status['visibility']	= 'public';
 						endif; ?>
 
 						<span class='wpdn-toggle-visibility' title='<?php _e( 'Visibility:', 'wp-dashboard-notes' ); ?> <?php echo $status['title']; ?>' data-visibility='<?php echo $status['visibility']; ?>'>
@@ -27,7 +27,7 @@
 
 						<span class='wpdn-color-note' title='<?php _e( 'Give me a color!', 'wp-dashboard-notes' ); ?>'>
 							<span class='wpdn-color-palette'>
-								
+
 								<?php foreach ( $colors as $name => $color ) : ?>
 									<span class='color color-<?php echo $name;?>' data-select-color-text='<?php echo $name; ?>'	data-select-color='<?php echo $color; ?>' style='background-color: <?php echo $color; ?>'></span>
 								<?php endforeach; ?>

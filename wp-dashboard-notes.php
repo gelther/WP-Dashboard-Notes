@@ -1,13 +1,13 @@
 <?php
 /*
- * Plugin Name: 	WP Dashboard Notes
- * Plugin URI: 		http://www.jeroensormani.com
- * Donate link: 	http://www.jeroensormani.com/donate/
- * Description: 	Working in a team? Want to make notes? You can do just that with WP Dashboard Notes. Create beautiful notes with a nice user experience.
- * Version: 		1.0.4
- * Author: 			Jeroen Sormani
- * Author URI: 		http://www.jeroensormani.com/
- * Text Domain: 	wp-dashboard-notes
+ * Plugin Name:		WP Dashboard Notes
+ * Plugin URI:		http://www.jeroensormani.com
+ * Donate link:		http://www.jeroensormani.com/donate/
+ * Description:		Working in a team? Want to make notes? You can do just that with WP Dashboard Notes. Create beautiful notes with a nice user experience.
+ * Version:			1.0.4
+ * Author:			Jeroen Sormani
+ * Author URI:		http://www.jeroensormani.com/
+ * Text Domain:		wp-dashboard-notes
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -18,9 +18,9 @@ if ( ! is_admin() ) return; // Only load plugin when user is in admin
  *
  * Main WPDN class initializes the plugin
  *
- * @class       WP_Dashboard_Notes
- * @version     1.0.0
- * @author      Jeroen Sormani
+ * @class		WP_Dashboard_Notes
+ * @version		1.0.0
+ * @author		Jeroen Sormani
  */
 class WP_Dashboard_Notes {
 
@@ -182,17 +182,17 @@ class WP_Dashboard_Notes {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param 	int 	$note_id 	ID of the note.
-	 * @return 	array 				Note meta.
+	 * @param	int		$note_id	ID of the note.
+	 * @return	array				Note meta.
 	 */
 	public static function wpdn_get_note_meta( $note_id ) {
 
 		$note_meta = get_post_meta( $note_id, '_note', true );
 
-		if ( ! isset( $note_meta['note_type'] ) ) 	{ $note_meta['note_type'] 	= 'regular'; }
-		if ( ! isset( $note_meta['color'] ) ) 		{ $note_meta['color'] 		= '#ffffff'; }
-		if ( ! isset( $note_meta['visibility'] ) ) 	{ $note_meta['visibility'] 	= 'public'; }
-		if ( ! isset( $note_meta['color_text'] ) ) 	{ $note_meta['color_text'] 	= 'white'; }
+		if ( ! isset( $note_meta['note_type'] ) )	{ $note_meta['note_type']	= 'regular'; }
+		if ( ! isset( $note_meta['color'] ) )		{ $note_meta['color']		= '#ffffff'; }
+		if ( ! isset( $note_meta['visibility'] ) )	{ $note_meta['visibility']	= 'public'; }
+		if ( ! isset( $note_meta['color_text'] ) )	{ $note_meta['color_text']	= 'white'; }
 
 		return apply_filters( 'wpdn_note_meta', $note_meta );
 
@@ -212,8 +212,8 @@ class WP_Dashboard_Notes {
 
 		foreach ( $notes as $note ) :
 
-			$note_meta 	= $this->wpdn_get_note_meta( $note->ID );
-			$user 		= wp_get_current_user();
+			$note_meta	= $this->wpdn_get_note_meta( $note->ID );
+			$user		= wp_get_current_user();
 
 			// Skip if private
 			if ( 'private' == $note_meta['visibility'] && $user->ID != $note->post_author ) :
@@ -241,22 +241,22 @@ class WP_Dashboard_Notes {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param object 	$post Post object.
-	 * @param array 	$args Extra arguments.
+	 * @param object	$post Post object.
+	 * @param array		$args Extra arguments.
 	 */
 	public function wpdn_render_dashboard_widget( $post, $args ) {
 
 		$note		= $args['args'];
-		$note_meta 	= $this->wpdn_get_note_meta( $note->ID );
+		$note_meta	= $this->wpdn_get_note_meta( $note->ID );
 		$content	= apply_filters( 'wpdn_content', $note->post_content );
 		$colors		= apply_filters( 'wpdn_colors', array(
-			'white' 	=> '#fff',
+			'white'		=> '#fff',
 			'red'		=> '#f7846a',
-			'orange' 	=> '#ffbd22',
+			'orange'	=> '#ffbd22',
 			'yellow'	=> '#eeee22',
-			'green' 	=> '#bbe535',
-			'blue' 		=> '#66ccdd',
-			'black' 	=> '#777777',
+			'green'		=> '#bbe535',
+			'blue'		=> '#66ccdd',
+			'black'		=> '#777777',
 		) );
 
 		// Inline styling required for note depending colors.
@@ -281,8 +281,8 @@ class WP_Dashboard_Notes {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param 	string 	$content 	Original content.
-	 * @return 	string				Edited content.
+	 * @param	string	$content	Original content.
+	 * @return	string				Edited content.
 	 */
 	public function wpdn_clickable_url( $content ) {
 
@@ -299,10 +299,10 @@ class WP_Dashboard_Notes {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @global 	object 	$current_screen	Information about current screen.
+	 * @global	object	$current_screen	Information about current screen.
 	 *
-	 * @param 	array 	$columns 		Array of columns within the screen options tab.
-	 * @return 	array					Array of columns within the screen options tab.
+	 * @param	array	$columns	Array of columns within the screen options tab.
+	 * @return	array				Array of columns within the screen options tab.
 	 */
 	public function wpdn_dashboard_columns( $columns ) {
 
@@ -332,7 +332,7 @@ class WP_Dashboard_Notes {
  */
 if ( ! function_exists( 'WP_Dashboard_Notes' ) ) :
 
- 	function WP_Dashboard_Notes() {
+	function WP_Dashboard_Notes() {
 		return WP_Dashboard_Notes::instance();
 	}
 
