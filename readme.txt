@@ -4,7 +4,7 @@ Donate link: http://www.jeroensormani.com/donate/
 Tags: note, notes, dashboard notes, wordpress notes, admin note, private note, post it, notification, collaboration, workflow, to do list, note list, note widget
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -146,8 +146,8 @@ function wpdn_add_style() {
 * Fix - Notice in the background when getting data
 * Fix - Delete not working when having double lined items
 * Fix - Bug in changing background colors
+* Fix - Prevent copying the text background color (or any other styles)
 * Add - Russian translation
-*
 
 = 1.0.4 - 19/10/2014 =
 
