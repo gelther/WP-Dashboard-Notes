@@ -164,7 +164,7 @@ jQuery( document ).ready( function($) {
 		$( this ).closest( '.wp-dashboard-note-wrap' ).attr( 'data-color-text', color_text );
 
 		// Set saving attributes
-		$( '[data-note-color]' ).attr( 'data-note-color', color );
+		$( this ).closest( '[data-note-color]' ).attr( 'data-note-color', color );
 		$( this ).closest( '[data-color-text]' ).attr( 'data-color-text', color_text );
 
 		// Update note
