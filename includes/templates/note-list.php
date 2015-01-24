@@ -1,4 +1,4 @@
-		<div class='wp-dashboard-note-wrap list-note' data-note-type='list' data-color-text='<?php echo $note_meta['color_text']; ?>'>
+		<div class='wp-dashboard-note-wrap list-note' data-note-type='list' data-color-text='<?php echo $note_meta['color_text']; ?>' data-note-color='<?php echo $note_meta['color']; ?>'>
 
 			<div class='wp-dashboard-note'>
 				<?php echo $content; ?>
@@ -33,7 +33,7 @@
 								<?php endforeach; ?>
 
 							</span>
-							<div class='dashicons dashicons-art wpdn-note-color' data-note-color='<?php echo $note_meta['color']; ?>'></div>
+							<div class='dashicons dashicons-art wpdn-note-color'></div>
 						</span>
 
 						<span title='<?php _e( 'Convert to regular note', 'wp-dashboard-notes'); ?>'>

@@ -140,6 +140,15 @@ function wpdn_add_style() {
 
 == Changelog ==
 
+= 1.0.5 - 24/01/2015 =
+
+* Improvement - Use singleton instead of global
+* Fix - Notice in the background when getting data
+* Fix - Delete not working when having double lined items
+* Fix - Bug in changing background colors
+* Add - Russian translation
+*
+
 = 1.0.4 - 19/10/2014 =
 
 * Fix - Notice on WP_DEBUG mode when creating new note
@@ -147,7 +156,6 @@ function wpdn_add_style() {
 * Fix - Displaying colors on new notes/after switching
 * Improvement - Drag list items only vertically
 * Improvement - Move savig/saved icon to title bar
-*
 
 = 1.0.3 - 12/10/2014 =
 
