@@ -239,4 +239,11 @@ jQuery( document ).ready( function($) {
 
 	});
 
+	// Prevent background color and other style from copying from one note to the other
+	$( 'body' ).on('paste', '[contenteditable]', function (e) {
+		e.preventDefault();
+		var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+		document.execCommand('insertText', false, text);
+	});
+
 });
