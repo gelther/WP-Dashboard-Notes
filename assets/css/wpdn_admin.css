@@ -343,6 +343,12 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 	color: inherit;
 }
 
+
+
+/****************************
+ * Visibility settings
+ ***************************/
+
 .visibility-settings {
 	position: absolute;
 	width: 100%;
@@ -353,7 +359,6 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 	margin-top: -46px;
 	overflow: hidden;
 	border-right: 3px solid rgba(76, 76, 76, 0.9);
-
 	-webkit-transform: translateX(-100%);
 	   -moz-transform: translateX(-100%);
 	    -ms-transform: translateX(-100%);
@@ -391,7 +396,6 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 .postbox {
 	overflow: hidden;
 }
-
 .postbox .close-visibility-settings {
 	transform: translateY(-50%);
 	position: absolute;
@@ -402,77 +406,10 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 	height: 30px;
 }
 
-/*
-
-.flipper {
-	display: block;
-	transition: .6s;
-	transform-style: preserve-3d;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-}
-.flipper .front,
-.flipper .back {
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: calc(100% + 46px);
-	position: absolute;
-	margin-top: -46px;
-}
-s.flipper:hover .front {
-	transform: rotateY(180deg);
-}
-s.flipper:hover .back {
-	transform: rotateY(0);
-	display: block;
-}
-.flipper .front {
-	z-index: 2;
-	transform: rotateY(0);
-	background: red;
-	backface-visibility: hidden;
-	transition: .6s;
-	transform-style: preserve-3d;
-/*
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-.flipper .back {
-	background: green;
-	transform: rotateY(-180deg);
-	display: table;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	-moz-background-clip: padding;
-	-webkit-background-clip: padding-box;
-	background-clip: padding-box;
-	border: 2px solid #DCDEE0;
-	border-collapse: separate;
-	backface-visibility: hidden;
-	transition: .6s;
-	transform-style: preserve-3d;
-/*
-	position: absolute;
-	top: 0;
-	left: 0;
-
-}
-*/
-
 
 /****************************
  * User permission form
  ***************************/
-
-.front {
-	overflow: hidden;
-}
 
 .user-permissions-form {
 	padding: 10px 30px 10px 50px;
