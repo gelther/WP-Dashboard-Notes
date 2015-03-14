@@ -109,7 +109,7 @@ input[type=text].add-list-item:-ms-input-placeholder {
 	height: 40px;
 	padding-left: 12px;
 	box-sizing: border-box;
-	-webkit-transition: opacity 0.3s ease-in-out;
+	-webkit-transition: opacity 0.6s ease-in-out;
 	transition: opacity 0.2s ease-in-out;
 }
 .wpdn-extra * {
@@ -341,4 +341,150 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 [data-color-text=template] .saved-icon,
 [data-color-text=template] .saving-icon {
 	color: inherit;
+}
+
+.visibility-settings {
+	position: absolute;
+	width: 100%;
+	height: calc(100% + 46px);
+	top: 0;
+	left: 0;
+	background: red;
+	margin-top: -46px;
+	overflow: hidden;
+	border-right: 3px solid rgba(76, 76, 76, 0.9);
+
+	-webkit-transform: translateX(-100%);
+	   -moz-transform: translateX(-100%);
+	    -ms-transform: translateX(-100%);
+	     -o-transform: translateX(-100%);
+	        transform: translateX(-100%);
+	-webkit-transition: all 0.5s ease-in-out;
+	   -moz-transition: all 0.5s ease-in-out;
+	    -ms-transition: all 0.5s ease-in-out;
+	     -o-transition: all 0.5s ease-in-out;
+	        transition: all 0.5s ease-in-out;
+}
+
+.visibility-settings input[type=checkbox] {
+	margin-right: 15px;
+	background: rgba(0, 0, 0, 0);
+	border-color: #555;
+}
+.visibility-settings input[type=checkbox]:checked:before {
+	color: #555;
+}
+.visibility-settings input[type=checkbox]:focus {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.open-visibility-settings .visibility-settings {
+	-webkit-transform: translateX(0%);
+	   -moz-transform: translateX(0%);
+	    -ms-transform: translateX(0%);
+	     -o-transform: translateX(0%);
+	        transform: translateX(0%);
+
+}
+
+.postbox {
+	overflow: hidden;
+}
+
+.postbox .close-visibility-settings {
+	transform: translateY(-50%);
+	position: absolute;
+	top: 50%;
+	font-size: 30px;
+	cursor: pointer;
+	width: 30px;
+	height: 30px;
+}
+
+/*
+
+.flipper {
+	display: block;
+	transition: .6s;
+	transform-style: preserve-3d;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+.flipper .front,
+.flipper .back {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: calc(100% + 46px);
+	position: absolute;
+	margin-top: -46px;
+}
+s.flipper:hover .front {
+	transform: rotateY(180deg);
+}
+s.flipper:hover .back {
+	transform: rotateY(0);
+	display: block;
+}
+.flipper .front {
+	z-index: 2;
+	transform: rotateY(0);
+	background: red;
+	backface-visibility: hidden;
+	transition: .6s;
+	transform-style: preserve-3d;
+/*
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.flipper .back {
+	background: green;
+	transform: rotateY(-180deg);
+	display: table;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	border: 2px solid #DCDEE0;
+	border-collapse: separate;
+	backface-visibility: hidden;
+	transition: .6s;
+	transform-style: preserve-3d;
+/*
+	position: absolute;
+	top: 0;
+	left: 0;
+
+}
+*/
+
+
+/****************************
+ * User permission form
+ ***************************/
+
+.front {
+	overflow: hidden;
+}
+
+.user-permissions-form {
+	padding: 10px 30px 10px 50px;
+	height: calc(100% - 20px);
+}
+.user-permissions-roles,
+.user-permissions-users {
+	width: 50%;
+	overflow: scroll;
+	max-height: 100%;
+}
+
+.user-permissions-form input {
+	margin-right: 7px;
 }

@@ -2,16 +2,16 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * Class Note_Post_Type.
+ * Class WPDN_Post_Type.
  *
  * Register and handle post type registration.
  *
- * @class		Note_Post_Type
+ * @class		WPDN_Post_Type
  * @version		1.0.0
  * @package		WP Dashboard Notes
  * @author		Jeroen Sormani
  */
-class Note_Post_Type {
+class WPDN_Post_Type {
 
 
 	/**
@@ -63,6 +63,25 @@ class Note_Post_Type {
 		) );
 
 	}
+
+
+	/**
+	 * Get notes.
+	 *
+	 * Returns all posts from DB with post type 'note'.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Array List of all published notes.
+	 */
+	public function get_notes() {
+
+		$notes = get_posts( array( 'posts_per_page' => '-1', 'post_type' => 'note' ) );
+
+		return apply_filters( 'wpdn_notes', $notes );
+
+	}
+
 
 }
 

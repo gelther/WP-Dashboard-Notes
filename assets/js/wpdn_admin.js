@@ -100,7 +100,8 @@ jQuery( document ).ready( function($) {
 			note_visibility:	$( '#' + post_id + ' [data-visibility]' ).attr( 'data-visibility' ),
 			note_color_text:	$( '#' + post_id + ' [data-color-text]' ).attr( 'data-color-text' ),
 			note_color:			$( '#' + post_id + ' [data-note-color]' ).attr( 'data-note-color' ),
-			note_type:			$( '#' + post_id + ' [data-note-type]' ).attr( 'data-note-type' )
+			note_type:			$( '#' + post_id + ' [data-note-type]' ).attr( 'data-note-type' ),
+			permissions_form:	$( '#' + post_id + ' .user-permissions-form' ).serialize()
 		};
 
 		$.post( ajaxurl, data, function( response ) {
@@ -244,6 +245,28 @@ jQuery( document ).ready( function($) {
 		e.preventDefault();
 		var text = (e.originalEvent || e).clipboardData.getData('text/plain');
 		document.execCommand('insertText', false, text);
+	});
+
+
+	/*****************************
+	 * Visibility settings
+	 ****************************/
+
+	// Open/close the visibility settings
+	$( 'body' ).on( 'click', '.wpdn-visibility-settings, .close-visibility-settings', function() {
+		$( this ).closest( '.postbox' ).toggleClass( 'open-visibility-settings' );
+	});
+
+	// Close visibility settings on esc
+	$( 'body' ).on( 'keydown', 'div', function( e ) {
+		if ( e.keyCode == 27 ) {
+			$( '.postbox' ).removeClass( 'open-visibility-settings' );
+		}
+	});
+
+	// Save visibility settings
+	$( '.visibility-settings' ).on( 'click', 'input[type=checkbox]', function() {
+		$( this ).trigger( 'wpdn-update', this );
 	});
 
 });

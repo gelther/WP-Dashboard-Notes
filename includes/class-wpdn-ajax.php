@@ -41,23 +41,34 @@ class WPDN_Ajax {
 	 *
 	 * @since 1.0.0
 	 */
-	 public function wpdn_update_note() {
+	public function wpdn_update_note() {
+
+		// Bail if user cannot save posts
+		if ( ! current_user_can( 'edit_posts' ) ) :
+			die();
+		endif;
+
+		$post_id			= absint( $_POST['post_id'] );
+		$permissions_form	= wp_parse_args( $_POST['permissions_form'] );
+		$user_permissions	= (array) $permissions_form['user_permission'];
+		array_walk( $user_permissions['user_role'], 'sanitize_text_field' );
 
 		$post = array(
-			'ID'			=> $_POST['post_id'],
-			'post_title'	=> $_POST['post_title'],
-			'post_content'	=> $_POST['post_content'],
+			'ID'			=> $post_id,
+			'post_title'	=> sanitize_title( $_POST['post_title'] ),
+			'post_author'	=> get_current_user_id(),
+			'post_content'	=> sanitize_text_field( $_POST['post_content'] ),
 		);
-
 		wp_update_post( $post );
 
 		$note_meta = array(
-			'color'			=> $_POST['note_color'],
-			'color_text'	=> $_POST['note_color_text'],
-			'visibility'	=> $_POST['note_visibility'],
-			'note_type'		=> $_POST['note_type'],
+			'color'			=> sanitize_text_field( $_POST['note_color'] ),
+			'color_text'	=> sanitize_text_field( $_POST['note_color_text'] ),
+			'visibility'	=> sanitize_text_field( $_POST['note_visibility'] ),
+			'note_type'		=> sanitize_text_field( $_POST['note_type'] ),
 		);
-		update_post_meta( $_POST['post_id'], '_note', $note_meta );
+		update_post_meta( $post_id, '_note', $note_meta );
+		update_post_meta( $post_id, '_role_permissions', $user_permissions['user_role'] );
 
 		die();
 
@@ -73,9 +84,10 @@ class WPDN_Ajax {
 	 */
 	public function wpdn_toggle_note() {
 
-		$note		= get_post( $_POST['post_id'] );
-		$content	= apply_filters( 'wpdn_content', $note->post_content );
-		$colors		= apply_filters( 'wpdn_colors', array(
+		$note				= get_post( absint( $_POST['post_id'] ) );
+		$role_permissions 	= get_post_meta( $note->ID, '_role_permissions', true );
+		$content			= apply_filters( 'wpdn_content', $note->post_content );
+		$colors				= apply_filters( 'wpdn_colors', array(
 			'white'		=> '#fff',
 			'red'		=> '#f7846a',
 			'orange'	=> '#ffbd22',
@@ -86,12 +98,11 @@ class WPDN_Ajax {
 		) );
 		$note_meta = WP_Dashboard_Notes::wpdn_get_note_meta( $note->ID );
 
-		?>
-		<style>
-			#note_<?php echo $note->ID; ?> { background-color: <?php echo $note_meta['color']; ?>; }
+		?><style>
+			#note_<?php echo $note->ID; ?>, #note_<?php echo $note->ID; ?> .visibility-settings { background-color: <?php echo $note_meta['color']; ?>; }
 			#note_<?php echo $note->ID; ?> .hndle { border: none; }
-		</style>
-		<?php
+		</style><?php
+
 		if ( $_POST['note_type'] == 'regular' ) :
 			require plugin_dir_path( __FILE__ ) . 'templates/note.php';
 		else :
@@ -139,9 +150,9 @@ class WPDN_Ajax {
 		$note_meta = apply_filters( 'wpdn_new_note_meta', $note_meta );
 		update_post_meta( $post_id, '_note', $note_meta );
 
-		ob_start(); ?>
+		ob_start();
 
-		<div id='note_<?php echo $post_id; ?>' class='postbox'>
+		?><div id='note_<?php echo $post_id; ?>' class='postbox'>
 			<div class='handlediv' title='Click to toggle'><br></div>
 			<h3 class="hndle">
 				<span>
@@ -156,18 +167,17 @@ class WPDN_Ajax {
 			<style>
 				#note_<?php echo $post_id; ?> { background-color: <?php echo $note_meta['color']; ?>; }
 				#note_<?php echo $post_id; ?> .hndle { border: none; }
-			</style>
+			</style><?php
 
-				<?php if ( 'regular' == $note_meta['note_type'] ) :
+				if ( 'regular' == $note_meta['note_type'] ) :
 					require plugin_dir_path( __FILE__ ) . 'templates/note.php';
 				else :
 					require plugin_dir_path( __FILE__ ) . 'templates/note-list.php';
-				endif; ?>
+				endif;
 
-			</div> <!-- .inside -->
-		</div> <!-- .postbox -->
+			?></div> <!-- .inside -->
+		</div> <!-- .postbox --><?php
 
-		<?php
 		$return['note']		= ob_get_clean();
 		$return['post_id']	= $post_id;
 
@@ -187,8 +197,7 @@ class WPDN_Ajax {
 	 */
 	public function wpdn_delete_note() {
 
-		$post_id = (int) $_POST['post_id'];
-		wp_trash_post( $post_id );
+		wp_trash_post( absint( $_POST['post_id'] ) );
 		die();
 
 	}

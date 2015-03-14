@@ -54,6 +54,18 @@ class WP_Dashboard_Notes {
 
 
 	/**
+	 * @var WPDN_Ajax $ajax AJAX class.
+	 */
+	public $ajax;
+
+
+	/**
+	 * @var WPDN_Post_Type $post_type Post Type class.
+	 */
+	public $post_type;
+
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
@@ -101,8 +113,8 @@ class WP_Dashboard_Notes {
 		/**
 		 * Post type class.
 		 */
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-note-post-type.php';
-		$this->post_type = new Note_Post_Type();
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpdn-post-type.php';
+		$this->post_type = new WPDN_Post_Type();
 
 		/**
 		 * AJAX class.
@@ -123,19 +135,21 @@ class WP_Dashboard_Notes {
 	public function hooks() {
 
 		// Add dashboard widget
-		add_action( 'wp_dashboard_setup', array( $this, 'wpdn_init_dashboard_widget' ) );
+		add_action( 'wp_dashboard_setup', array( $this, 'init_dashboard_widget' ) );
 
 		// Enqueue scripts
-		add_action( 'admin_enqueue_scripts', array( $this, 'wpdn_admin_enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
 		// Make URLs clickable
-		add_action( 'wpdn_content', array( $this, 'wpdn_clickable_url' ) );
+		add_action( 'wpdn_content', array( $this, 'clickable_url' ) );
 
 		// Add note button
-		add_filter( 'manage_dashboard_columns', array( $this, 'wpdn_dashboard_columns' ) );
+		add_filter( 'manage_dashboard_columns', array( $this, 'dashboard_columns' ) );
 
 		// Load textdomain
 		load_plugin_textdomain( 'wp-dashboard-notes', false, basename( dirname( __FILE__ ) ) . '/languages' );
+
+		add_action( 'admin_init', array( $this, 'plugin_update' ) );
 
 	}
 
@@ -147,13 +161,14 @@ class WP_Dashboard_Notes {
 	 *
 	 * @since 1.0.0
 	 */
-	public function wpdn_admin_enqueue_scripts() {
+	public function admin_enqueue_scripts( $hook_suffix ) {
 
-		// Javascript
-		wp_enqueue_script( 'wpdn_admin_js', plugin_dir_url( __FILE__ ) . 'assets/js/wpdn_admin.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version );
+		if ( 'index.php' == $hook_suffix ) :
 
-		// Stylesheet
-		wp_enqueue_style( 'wpdn_admin_css', plugin_dir_url( __FILE__ ) . 'assets/css/wpdn_admin.css', array( 'dashicons' ), $this->version );
+			wp_enqueue_script( 'wpdn_admin_js', plugin_dir_url( __FILE__ ) . 'assets/js/wpdn_admin.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version );
+			wp_enqueue_style( 'wpdn_admin_css', plugin_dir_url( __FILE__ ) . 'assets/css/wpdn_admin.css', array( 'dashicons' ), $this->version );
+
+		endif;
 
 	}
 
@@ -167,7 +182,7 @@ class WP_Dashboard_Notes {
 	 *
 	 * @return Array List of all published notes.
 	 */
-	public function wpdn_get_notes() {
+	public function get_notes() {
 
 		$notes = get_posts( array( 'posts_per_page' => '-1', 'post_type' => 'note' ) );
 
@@ -186,7 +201,7 @@ class WP_Dashboard_Notes {
 	 * @param	int		$note_id	ID of the note.
 	 * @return	array				Note meta.
 	 */
-	public static function wpdn_get_note_meta( $note_id ) {
+	public static function get_note_meta( $note_id ) {
 
 		$note_meta = get_post_meta( $note_id, '_note', true );
 
@@ -207,30 +222,43 @@ class WP_Dashboard_Notes {
 	 *
 	 * @since 1.0.0
 	 */
-	public function wpdn_init_dashboard_widget() {
+	public function init_dashboard_widget() {
 
-		$notes = $this->wpdn_get_notes();
+		global $current_user;
 
-		foreach ( $notes as $note ) :
+		if ( $notes = $this->get_notes() ) :
+			foreach ( $notes as $note ) :
 
-			$note_meta	= $this->wpdn_get_note_meta( $note->ID );
-			$user		= wp_get_current_user();
+				$note_meta			= $this->get_note_meta( $note->ID );
+				$role_permissions	= (array) get_post_meta( $note->ID, '_role_permissions', true );
+				$user				= wp_get_current_user();
 
-			// Skip if private
-			if ( 'private' == $note_meta['visibility'] && $user->ID != $note->post_author ) :
-				continue;
-			endif;
+				// Skip if private
+				if ( 'private' == $note_meta['visibility'] && $user->ID != $note->post_author ) :
+					continue;
+				endif;
 
-			// Add widget
-			wp_add_dashboard_widget(
-				'note_' . $note->ID,
-				'<span contenteditable="true" class="wpdn-title">' . $note->post_title . '</span><div class="wpdn-edit-title dashicons dashicons-edit"></div><span class="status"></span>',
-				array( $this, 'wpdn_render_dashboard_widget' ),
-				'',
-				$note
-			);
+				// Skip if user has no permission
+				if ( ! array_intersect( $role_permissions, array_keys( $current_user->caps ) ) && $user->ID != $note->post_author ) :
+					continue;
+				endif;
 
-		endforeach;
+				// Allow 3rd-party skipping
+				if ( apply_filters( 'wpdn_render_note', false, $note ) ) :
+					continue;
+				endif;
+
+				// Add widget
+				wp_add_dashboard_widget(
+					'note_' . $note->ID,
+					'<span contenteditable="true" class="wpdn-title">' . $note->post_title . '</span><div class="wpdn-edit-title dashicons dashicons-edit"></div><span class="status"></span>',
+					array( $this, 'render_dashboard_widget' ),
+					'',
+					$note
+				);
+
+			endforeach;
+		endif;
 
 	}
 
@@ -245,12 +273,13 @@ class WP_Dashboard_Notes {
 	 * @param object	$post Post object.
 	 * @param array		$args Extra arguments.
 	 */
-	public function wpdn_render_dashboard_widget( $post, $args ) {
+	public function render_dashboard_widget( $post, $args ) {
 
-		$note		= $args['args'];
-		$note_meta	= $this->wpdn_get_note_meta( $note->ID );
-		$content	= apply_filters( 'wpdn_content', $note->post_content );
-		$colors		= apply_filters( 'wpdn_colors', array(
+		$note				= $args['args'];
+		$role_permissions 	= (array) get_post_meta( $note->ID, '_role_permissions', true );
+		$note_meta			= $this->get_note_meta( $note->ID );
+		$content			= apply_filters( 'wpdn_content', $note->post_content );
+		$colors				= apply_filters( 'wpdn_colors', array(
 			'white'		=> '#fff',
 			'red'		=> '#f7846a',
 			'orange'	=> '#ffbd22',
@@ -262,7 +291,7 @@ class WP_Dashboard_Notes {
 
 		// Inline styling required for note depending colors.
 		?><style>
-			#note_<?php echo $note->ID; ?> { background-color: <?php echo $note_meta['color']; ?>; }
+			#note_<?php echo $note->ID; ?>, #note_<?php echo $note->ID; ?> .visibility-settings { background-color: <?php echo $note_meta['color']; ?>; }
 			#note_<?php echo $note->ID; ?> .hndle { border: none; }
 		</style><?php
 
@@ -285,10 +314,8 @@ class WP_Dashboard_Notes {
 	 * @param	string	$content	Original content.
 	 * @return	string				Edited content.
 	 */
-	public function wpdn_clickable_url( $content ) {
-
+	public function clickable_url( $content ) {
 		return make_clickable( $content );
-
 	}
 
 
@@ -305,14 +332,40 @@ class WP_Dashboard_Notes {
 	 * @param	array	$columns	Array of columns within the screen options tab.
 	 * @return	array				Array of columns within the screen options tab.
 	 */
-	public function wpdn_dashboard_columns( $columns ) {
+	public function dashboard_columns( $columns ) {
 
 		global $current_screen;
 
 		if ( $current_screen->id ) :
 			$columns['add_note'] = __( 'Add note', 'wp-dashboard-notes' );
 		endif;
+
 		return $columns;
+
+	}
+
+
+	public function plugin_update() {
+
+		$db_version = get_option( 'wp_dashboard_notes_version', '1.0.0' );
+
+		// Stop current version is up to date
+		if ( $db_version >= $this->version ) :
+			return;
+		endif;
+
+		// Update when version is lower than 1.0.6
+		if ( version_compare( '1.0.6', $db_version ) ) :
+		error_Log( 'run updaters' );
+			$notes = $this->get_notes();
+			foreach ( $notes as $note ) :
+				$note_meta = get_post_meta( $note->ID, '_note', true );
+				$role_permissions = $note_meta['visibility'] == 'private' ? array() : array_keys( get_editable_roles() );
+				update_post_meta( $note->ID, '_role_permissions', $role_permissions );
+			endforeach;
+		endif;
+
+		update_option( 'wp_dashboard_notes_version', $this->version );
 
 	}
 
