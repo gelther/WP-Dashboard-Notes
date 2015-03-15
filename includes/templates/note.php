@@ -1,4 +1,4 @@
-		<div class='wp-dashboard-note-wrap regular-note' data-note-type='regular' data-color-text='<?php echo $note_meta['color_text']; ?>' data-note-color='<?php echo $note_meta['color']; ?>'>
+		<div class='wp-dashboard-note-wrap regular-note' data-note-type='regular' data-color-text='<?php echo esc_attr( $note_meta['color_text'] ); ?>' data-note-color='<?php echo esc_attr( $note_meta['color'] ); ?>'>
 
 			<div class='wp-dashboard-note' contenteditable='true'>
 				<?php echo $content; ?>
@@ -17,7 +17,8 @@
 						<span class='wpdn-color-palette'>
 
 							<?php foreach ( $colors as $name => $color ) : ?>
-								<span class='color color-<?php echo $name;?>' data-select-color-text='<?php echo $name; ?>'	data-select-color='<?php echo $color; ?>' style='background-color: <?php echo $color; ?>'></span>
+								<span class='color color-<?php echo esc_attr( $name );?>' data-select-color-text='<?php echo esc_attr( $name ); ?>'
+									data-select-color='<?php echo esc_attr( $color ); ?>' style='background-color: <?php echo esc_attr( $color ); ?>'></span>
 							<?php endforeach; ?>
 
 						</span>
@@ -43,30 +44,46 @@
 
 
 		<!-- Visibility settings -->
-		<div class='visibility-settings'>
+		<div class='visibility-settings' style='left: 100% !important;'>
 
 			<i class='dashicons dashicons-arrow-left-alt2 close-visibility-settings'></i>
 
 			<form class='user-permissions-form'>
 
-				<div class='user-permissions-roles'><?php
+				<div class='user-permissions-roles'>
 
-					?><h3 style='padding-left: 0; padding-top: 0;'><?php _e( 'User roles', 'wp-dashboard-notes' ); ?></h3><?php
+					<h3><?php _e( 'User roles', 'wp-dashboard-notes' ); ?></h3><?php
 					$roles = array_keys( get_editable_roles() );
 					$roles = array_combine( $roles, $roles );
 
-					foreach ( $roles as $role ) :
-						?><div class='user-permission-role user-permission-role-<?php echo $role; ?>'>
-						<input type='checkbox' name='user_permission[user_role][]' id='user_permission_<?php echo $note->ID; ?>_<?php echo $role; ?>' <?php checked( in_array( $role, $role_permissions ) ); ?> value='<?php echo $role; ?>'>
-							<label for='user_permission_<?php echo $note->ID; ?>_<?php echo $role; ?>'><?php echo ucfirst( $role ); ?></label>
-						</div><?php
-					endforeach;
+					if ( is_array( $roles ) ) :
+						foreach ( $roles as $role ) :
+							?><div class='user-permission-role user-permission-role-<?php echo $role; ?>'>
+							<input type='checkbox' name='user_permission[user_role][]' id='user_permission_<?php echo esc_attr( $note->ID . '_' . $role ); ?>' <?php
+								checked( in_array( $role, (array) $role_permissions ) ); ?> value='<?php echo esc_attr( $role ); ?>'>
+								<label for='user_permission_<?php echo esc_attr( $note->ID . '_' . $role ); ?>'><?php echo esc_html( ucfirst( $role ) ); ?></label>
+							</div><?php
+						endforeach;
+					endif;
 
 				?></div>
 
 				<div class='user-permissions-users'>
 
-				</div>
+					<h3><?php _e( 'Users', 'wp-dashboard-notes' ); ?></h3>
+					<input class='user-permission select2' placeholder='<?php _e( 'Search for a user', 'wp-dashboard-notes' ); ?>'><?php
+
+					if ( is_array( $user_permissions ) ) :
+						foreach ( $user_permissions as $user_id ) :
+							$user_data = get_userdata( $user_id );
+							?><div class='user-permission-user user-permission-user-'>
+								<input type='checkbox' name='user_permission[user][]' checked='checked' value='<?php echo esc_attr( $user_data->ID ); ?>'>
+								<label for='user_permission_<?php echo esc_attr( $note->ID . '_' . $user_data->ID ); ?>'><?php echo $user_data->display_name; ?></label>
+							</div><?php
+						endforeach;
+					endif;
+
+				?></div>
 
 			</form>
 

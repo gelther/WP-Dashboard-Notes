@@ -269,4 +269,47 @@ jQuery( document ).ready( function($) {
 		$( this ).trigger( 'wpdn-update', this );
 	});
 
+
+	// Ajax customer search boxes
+	$( '.user-permission' ).select2({
+		allowClear: true,
+		placeholder: $( this ).attr( 'placeholder' ),
+		minimumInputLength: 2,
+		escapeMarkup: function( m ) {
+			return m;
+		},
+		ajax: {
+			url:			ajaxurl,
+			dataType:		'json',
+			quietMillis: 250,
+			data: function( search, page ) {
+				return {
+					search:	search,
+					action:	'wpdn_search_user'
+				};
+			},
+			results: function( data, page ) {
+				var terms = [];
+				if ( data ) {
+					$.each( data, function( id, text ) {
+						terms.push( { id: id, text: text } );
+					});
+				}
+				return { results: terms };
+			}
+		}
+	});
+
+	// On user select - add to list + clear
+	$( '.user-permission' ).on( 'select2-selecting', function(e) {
+		$( this ).closest( '.user-permissions-users' ).append( '<div class="user-permission-user user-permission-user-"><input type="checkbox" name="user_permission[user][]" checked="checked" value="' + e.choice.id + '"><label for="user_permission_' + $( this ).closest( ".postbox" ).attr( 'id' ) + '_' + e.choice.id + '">' + e.choice.text + '</label></div>' );
+	});
+
+	// Clear select2 value on click
+	$( '.user-permission' ).on( 'click', function(e) {
+		$( '.user-permission' ).select2( 'data', null );
+		$( this ).trigger( 'wpdn-update', this );
+	});
+
+
 });

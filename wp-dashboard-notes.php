@@ -166,7 +166,9 @@ class WP_Dashboard_Notes {
 		if ( 'index.php' == $hook_suffix ) :
 
 			wp_enqueue_script( 'wpdn_admin_js', plugin_dir_url( __FILE__ ) . 'assets/js/wpdn_admin.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version );
+			wp_enqueue_script( 'select2', plugin_dir_url( __FILE__ ) . 'assets/js/select2.min.js', array( 'jquery' ), $this->version );
 			wp_enqueue_style( 'wpdn_admin_css', plugin_dir_url( __FILE__ ) . 'assets/css/wpdn_admin.css', array( 'dashicons' ), $this->version );
+			wp_enqueue_style( 'select2', plugin_dir_url( __FILE__ ) . 'assets/css/select2.css', array( 'dashicons' ), $this->version );
 
 		endif;
 
@@ -230,7 +232,8 @@ class WP_Dashboard_Notes {
 			foreach ( $notes as $note ) :
 
 				$note_meta			= $this->get_note_meta( $note->ID );
-				$role_permissions	= (array) get_post_meta( $note->ID, '_role_permissions', true );
+				$user_permissions	= get_post_meta( $note->ID, '_user_permissions', true );
+				$role_permissions	= get_post_meta( $note->ID, '_role_permissions', true );
 				$user				= wp_get_current_user();
 
 				// Skip if private
@@ -239,7 +242,7 @@ class WP_Dashboard_Notes {
 				endif;
 
 				// Skip if user has no permission
-				if ( ! array_intersect( $role_permissions, array_keys( $current_user->caps ) ) && $user->ID != $note->post_author ) :
+				if ( ! array_intersect( (array) $role_permissions, array_keys( $current_user->caps ) ) && $user->ID != $note->post_author ) :
 					continue;
 				endif;
 
@@ -276,7 +279,8 @@ class WP_Dashboard_Notes {
 	public function render_dashboard_widget( $post, $args ) {
 
 		$note				= $args['args'];
-		$role_permissions 	= (array) get_post_meta( $note->ID, '_role_permissions', true );
+		$user_permissions	= get_post_meta( $note->ID, '_user_permissions', true );
+		$role_permissions 	= get_post_meta( $note->ID, '_role_permissions', true );
 		$note_meta			= $this->get_note_meta( $note->ID );
 		$content			= apply_filters( 'wpdn_content', $note->post_content );
 		$colors				= apply_filters( 'wpdn_colors', array(

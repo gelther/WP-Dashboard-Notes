@@ -355,7 +355,6 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 	height: calc(100% + 46px);
 	top: 0;
 	left: 0;
-	background: red;
 	margin-top: -46px;
 	overflow: hidden;
 	border-right: 3px solid rgba(76, 76, 76, 0.9);
@@ -412,16 +411,41 @@ span.wpdn-color-note:hover .wpdn-color-palette {
  ***************************/
 
 .user-permissions-form {
-	padding: 10px 30px 10px 50px;
+	padding: 10px 10px 10px 50px;
 	height: calc(100% - 20px);
+}
+.user-permissions-form h3 {
+	padding: 0 0 10px;
+	height: 28px;
+	line-height: 28px;
+	vertical-align: middle;
+	display: inline-block;
 }
 .user-permissions-roles,
 .user-permissions-users {
-	width: 50%;
+	margin: 0 1%;
 	overflow: scroll;
 	max-height: 100%;
+	display: inline-block;
+	vertical-align: top;
+}
+.user-permissions-roles {
+	width: 30%;
 }
 
-.user-permissions-form input {
-	margin-right: 7px;
+.user-permissions-users {
+	width: 65%;
+}
+.user-permissions-users h3 {
+	width: 50px;
+	display: inline-block;
+}
+.user-permissions-users .user-permission.select2 {
+	width: calc( 100% - 56px);
+	vertical-align: top;
+}
+
+.user-permissions-form input[type=checkbox] {
+	margin-right: 5px;
+	vertical-align: bottom;
 }

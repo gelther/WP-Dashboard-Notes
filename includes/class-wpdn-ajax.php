@@ -31,6 +31,8 @@ class WPDN_Ajax {
 		add_action( 'wp_ajax_wpdn_add_note', array( $this, 'wpdn_add_note' ) );
 		add_action( 'wp_ajax_wpdn_delete_note', array( $this, 'wpdn_delete_note' ) );
 
+		add_action( 'wp_ajax_wpdn_search_user', array( $this, 'search_users' ) );
+
 	}
 
 
@@ -50,8 +52,19 @@ class WPDN_Ajax {
 
 		$post_id			= absint( $_POST['post_id'] );
 		$permissions_form	= wp_parse_args( $_POST['permissions_form'] );
-		$user_permissions	= (array) $permissions_form['user_permission'];
-		array_walk( $user_permissions['user_role'], 'sanitize_text_field' );
+		$user_permissions	= isset( $permissions_form['user_permission'] ) ? $permissions_form['user_permission'] : array();
+
+		if ( isset( $user_permissions['user_role'] ) && is_array( $user_permissions['user_role'] ) ) :
+			array_walk( $user_permissions['user_role'], 'sanitize_text_field' );
+		else :
+			$user_permissions['user_role'] = '';
+		endif;
+
+		if ( isset( $user_permissions['user'] ) && is_array( $user_permissions['user'] ) ) :
+			array_walk( $user_permissions['user'], 'absint' );
+		else :
+			$user_permissions['user'] = '';
+		endif;
 
 		$post = array(
 			'ID'			=> $post_id,
@@ -64,11 +77,11 @@ class WPDN_Ajax {
 		$note_meta = array(
 			'color'			=> sanitize_text_field( $_POST['note_color'] ),
 			'color_text'	=> sanitize_text_field( $_POST['note_color_text'] ),
-			'visibility'	=> sanitize_text_field( $_POST['note_visibility'] ),
 			'note_type'		=> sanitize_text_field( $_POST['note_type'] ),
 		);
 		update_post_meta( $post_id, '_note', $note_meta );
 		update_post_meta( $post_id, '_role_permissions', $user_permissions['user_role'] );
+		update_post_meta( $post_id, '_user_permissions', $user_permissions['user'] );
 
 		die();
 
@@ -86,6 +99,7 @@ class WPDN_Ajax {
 
 		$note				= get_post( absint( $_POST['post_id'] ) );
 		$role_permissions 	= get_post_meta( $note->ID, '_role_permissions', true );
+		$user_permissions 	= get_post_meta( $note->ID, '_user_permissions', true );
 		$content			= apply_filters( 'wpdn_content', $note->post_content );
 		$colors				= apply_filters( 'wpdn_colors', array(
 			'white'		=> '#fff',
@@ -99,7 +113,7 @@ class WPDN_Ajax {
 		$note_meta = WP_Dashboard_Notes::wpdn_get_note_meta( $note->ID );
 
 		?><style>
-			#note_<?php echo $note->ID; ?>, #note_<?php echo $note->ID; ?> .visibility-settings { background-color: <?php echo $note_meta['color']; ?>; }
+			#note_<?php echo $note->ID; ?>, #note_<?php echo $note->ID; ?> .visibility-settings { background-color: <?php echo esc_html( $note_meta['color'] ); ?>; }
 			#note_<?php echo $note->ID; ?> .hndle { border: none; }
 		</style><?php
 
@@ -200,6 +214,55 @@ class WPDN_Ajax {
 		wp_trash_post( absint( $_POST['post_id'] ) );
 		die();
 
+	}
+
+
+	public function search_users() {
+
+// 		check_ajax_referer( 'search-customers', 'security' );
+
+		$search = wc_clean( stripslashes( $_GET['search'] ) );
+
+		if ( empty( $search ) ) :
+			die();
+		endif;
+
+		$found_users = array();
+
+		add_action( 'pre_user_query', array( $this, 'json_search_customer_name' ) );
+
+		$user_query = new WP_User_Query( apply_filters( 'woocommerce_json_search_customers_query', array(
+			'fields'         => 'all',
+			'orderby'        => 'display_name',
+			'search'         => '*' . $search . '*',
+			'search_columns' => array( 'ID', 'user_login', 'user_email', 'user_nicename' )
+		) ) );
+
+		remove_action( 'pre_user_query', array( $this, 'json_search_customer_name' ) );
+
+		if ( $users = $user_query->get_results() ) :
+			foreach ( $users as $user ) :
+				$found_users[ $user->ID ] = $user->display_name . ' (#' . $user->ID . ')';
+			endforeach;
+		endif;
+
+		wp_send_json( $found_users );
+
+	}
+
+
+	public static function json_search_customer_name( $query ) {
+		global $wpdb;
+
+		$search = wc_clean( stripslashes( $_GET['search'] ) );
+		if ( method_exists( $wpdb, 'esc_like' ) ) :
+			$search = $wpdb->esc_like( $search );
+		else :
+			$search = like_escape( $search );
+		endif;
+
+		$query->query_from  .= " INNER JOIN {$wpdb->usermeta} AS user_name ON {$wpdb->users}.ID = user_name.user_id AND ( user_name.meta_key = 'first_name' OR user_name.meta_key = 'last_name' ) ";
+		$query->query_where .= $wpdb->prepare( " OR user_name.meta_value LIKE %s ", '%' . $search . '%' );
 	}
 
 
