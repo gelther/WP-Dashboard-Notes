@@ -350,51 +350,96 @@ span.wpdn-color-note:hover .wpdn-color-palette {
  ***************************/
 
 .visibility-settings {
-	position: absolute;
-	width: 100%;
-	height: calc(100% + 46px);
+	position: fixed;
+	width: 50vw;
+	height: 50vh;
+	padding: 20px;
 	top: 0;
 	left: 0;
-	margin-top: -46px;
 	overflow: hidden;
-	border-right: 3px solid rgba(76, 76, 76, 0.9);
-	-webkit-transform: translateX(-100%);
-	   -moz-transform: translateX(-100%);
-	    -ms-transform: translateX(-100%);
-	     -o-transform: translateX(-100%);
-	        transform: translateX(-100%);
-	-webkit-transition: all 0.5s ease-in-out;
-	   -moz-transition: all 0.5s ease-in-out;
-	    -ms-transition: all 0.5s ease-in-out;
-	     -o-transition: all 0.5s ease-in-out;
-	        transition: all 0.5s ease-in-out;
+	border-right: 3px solid rgba( 76, 76, 76, 0.9 );
+	-webkit-transform: translateX( -60% ) translateY( -50% );
+	   -moz-transform: translateX( -60% ) translateY( -50% );
+	    -ms-transform: translateX( -60% ) translateY( -50% );
+	     -o-transform: translateX( -60% ) translateY( -50% );
+	        transform: translateX( -60% ) translateY( -50% );
+	-webkit-transition: opacity 0.15s ease-in-out 0.15s, visibility 0.15s ease-in-out 0.15s, transform 0.2s ease-in-out 0.15s;
+	   -moz-transition: opacity 0.15s ease-in-out 0.15s, visibility 0.15s ease-in-out 0.15s, transform 0.2s ease-in-out 0.15s;
+	    -ms-transition: opacity 0.15s ease-in-out 0.15s, visibility 0.15s ease-in-out 0.15s, transform 0.2s ease-in-out 0.15s;
+	     -o-transition: opacity 0.15s ease-in-out 0.15s, visibility 0.15s ease-in-out 0.15s, transform 0.2s ease-in-out 0.15s;
+	        transition: opacity 0.15s ease-in-out 0.15s, visibility 0.15s ease-in-out 0.15s, transform 0.2s ease-in-out 0.15s;
+	z-index: 100001;
+	visibility: hidden;
+	width: 50vw;
+	min-width: 500px;
+	height: 50vh;
+	left: 50%;
+	top: 50%;
+	opacity: 0;
+}
+.visibility-settings.open {
+	-webkit-transform: translateX( -50% ) translateY( -50% );
+	   -moz-transform: translateX( -50% ) translateY( -50% );
+	    -ms-transform: translateX( -50% ) translateY( -50% );
+	     -o-transform: translateX( -50% ) translateY( -50% );
+	        transform: translateX( -50% ) translateY( -50% );
+	visibility: visible;
+	opacity: 1;
+/*
+	-webkit-transition: opacity 0.15s ease-in-out 0.2s, visibility 0.15s ease-in-out 0.2s, transform 0.2s ease-in-out;
+	   -moz-transition: opacity 0.15s ease-in-out 0.2s, visibility 0.15s ease-in-out 0.2s, transform 0.2s ease-in-out;
+	    -ms-transition: opacity 0.15s ease-in-out 0.2s, visibility 0.15s ease-in-out 0.2s, transform 0.2s ease-in-out;
+	     -o-transition: opacity 0.15s ease-in-out 0.2s, visibility 0.15s ease-in-out 0.2s, transform 0.2s ease-in-out;
+	        transition: opacity 0.15s ease-in-out 0.2s, visibility 0.15s ease-in-out 0.2s, transform 0.2s ease-in-out;
+*/
 }
 
 .visibility-settings input[type=checkbox] {
 	margin-right: 15px;
-	background: rgba(0, 0, 0, 0);
+	background: rgba( 0, 0, 0, 0 );
 	border-color: #555;
 }
+
 .visibility-settings input[type=checkbox]:checked:before {
 	color: #555;
 }
+
 .visibility-settings input[type=checkbox]:focus {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
 
-.open-visibility-settings .visibility-settings {
-	-webkit-transform: translateX(0%);
-	   -moz-transform: translateX(0%);
-	    -ms-transform: translateX(0%);
-	     -o-transform: translateX(0%);
-	        transform: translateX(0%);
 
+.postbox.open-visibility-settings .visibility-settings-overlay {
+/*
+	-webkit-transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out;
+	   -moz-transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out;
+	    -ms-transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out;
+	     -o-transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out;
+	        transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out;
+*/
+	-webkit-transition-delay: 0;
+	opacity: 1;
+	visibility: visible;
 }
 
-.postbox {
-	overflow: hidden;
+.visibility-settings-overlay {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba( 0, 0, 0, 0.85 );
+	z-index: 100000;
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: all 0.15s ease-in-out 0.15s, visibility 0.15s ease-in-out 0.15s;
+	   -moz-transition: all 0.15s ease-in-out 0.15s, visibility 0.15s ease-in-out 0.15s;
+	    -ms-transition: all 0.15s ease-in-out 0.15s, visibility 0.15s ease-in-out 0.15s;
+	     -o-transition: all 0.15s ease-in-out 0.15s, visibility 0.15s ease-in-out 0.15s;
+	        transition: all 0.15s ease-in-out 0.15s, visibility 0.15s ease-in-out 0.15s;
 }
+
 .postbox .close-visibility-settings {
 	transform: translateY(-50%);
 	position: absolute;

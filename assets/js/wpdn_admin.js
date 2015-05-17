@@ -253,8 +253,10 @@ jQuery( document ).ready( function($) {
 	 ****************************/
 
 	// Open/close the visibility settings
-	$( 'body' ).on( 'click', '.wpdn-visibility-settings, .close-visibility-settings', function() {
+	$( 'body' ).on( 'click', '.wpdn-visibility-settings, .close-visibility-settings, .visibility-settings-overlay', function() {
 		$( this ).closest( '.postbox' ).toggleClass( 'open-visibility-settings' );
+		$( this ).closest( '.postbox' ).find( '.visibility-settings' ).toggleClass( 'open closed' );
+
 	});
 
 	// Close visibility settings on esc
@@ -281,7 +283,7 @@ jQuery( document ).ready( function($) {
 		ajax: {
 			url:			ajaxurl,
 			dataType:		'json',
-			quietMillis: 250,
+			quietMillis: 	250,
 			data: function( search, page ) {
 				return {
 					search:	search,

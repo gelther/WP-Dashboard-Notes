@@ -44,10 +44,13 @@
 
 
 		<!-- Visibility settings -->
-		<div class='visibility-settings' style='left: 100% !important;'>
+		<div class='visibility-settings-overlay'></div>
+		<div class='visibility-settings closed'>
 
 			<i class='dashicons dashicons-arrow-left-alt2 close-visibility-settings'></i>
 
+			<h2><?php _e( 'Note visibility', 'wp-dashboard-notes' ); ?></h2>
+			<p><?php _e( 'Allow the following users persmission to view and edit this note.', 'wp-dashboard-notes' ); ?>
 			<form class='user-permissions-form'>
 
 				<div class='user-permissions-roles'>

@@ -221,13 +221,14 @@ class WPDN_Ajax {
 
 // 		check_ajax_referer( 'search-customers', 'security' );
 
-		$search = wc_clean( stripslashes( $_GET['search'] ) );
+		$found_users = array();
+
+		$search = sanitize_text_field( $_GET['search'] );
 
 		if ( empty( $search ) ) :
+			echo json_encode( $found_users );
 			die();
 		endif;
-
-		$found_users = array();
 
 		add_action( 'pre_user_query', array( $this, 'json_search_customer_name' ) );
 
@@ -246,7 +247,8 @@ class WPDN_Ajax {
 			endforeach;
 		endif;
 
-		wp_send_json( $found_users );
+		echo json_encode( $found_users );
+		die;
 
 	}
 
@@ -254,7 +256,7 @@ class WPDN_Ajax {
 	public static function json_search_customer_name( $query ) {
 		global $wpdb;
 
-		$search = wc_clean( stripslashes( $_GET['search'] ) );
+		$search = sanitize_text_field( $_GET['search'] );
 		if ( method_exists( $wpdb, 'esc_like' ) ) :
 			$search = $wpdb->esc_like( $search );
 		else :

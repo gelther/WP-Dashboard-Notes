@@ -363,8 +363,8 @@ class WP_Dashboard_Notes {
 		error_Log( 'run updaters' );
 			$notes = $this->get_notes();
 			foreach ( $notes as $note ) :
-				$note_meta = get_post_meta( $note->ID, '_note', true );
-				$role_permissions = $note_meta['visibility'] == 'private' ? array() : array_keys( get_editable_roles() );
+				$note_meta 			= get_post_meta( $note->ID, '_note', true );
+				$role_permissions 	= $note_meta['visibility'] == 'private' ? array() : array_keys( get_editable_roles() );
 				update_post_meta( $note->ID, '_role_permissions', $role_permissions );
 			endforeach;
 		endif;
