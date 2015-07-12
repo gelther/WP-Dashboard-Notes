@@ -70,7 +70,7 @@ class WPDN_Ajax {
 			'ID'			=> $post_id,
 			'post_title'	=> sanitize_title( $_POST['post_title'] ),
 			'post_author'	=> get_current_user_id(),
-			'post_content'	=> sanitize_text_field( $_POST['post_content'] ),
+			'post_content'	=> sanitize_post_field( 'post_content', $_POST['post_content'], $post_id, 'display' ),
 		);
 		wp_update_post( $post );
 
@@ -110,7 +110,7 @@ class WPDN_Ajax {
 			'blue'		=> '#66ccdd',
 			'black'		=> '#777777',
 		) );
-		$note_meta = WP_Dashboard_Notes::wpdn_get_note_meta( $note->ID );
+		$note_meta = WP_Dashboard_Notes::get_note_meta( $note->ID );
 
 		?><style>
 			#note_<?php echo $note->ID; ?>, #note_<?php echo $note->ID; ?> .visibility-settings { background-color: <?php echo esc_html( $note_meta['color'] ); ?>; }
@@ -137,15 +137,16 @@ class WPDN_Ajax {
 	 */
 	public function wpdn_add_note() {
 
-		$args = array(
+		$post_id = wp_insert_post( array(
 			'post_status'	=> 'publish',
 			'post_type'		=> 'note',
 			'post_title'	=> __( 'New note', 'wp-dashboard-notes' ),
-		);
-		$post_id = wp_insert_post( $args );
+		) );
 
-		$note		= (object) array( 'ID' => $post_id, 'post_content' => '' );
-		$note_meta	= apply_filters( 'wpdn_new_note_meta', array(
+		$role_permissions 	= array();
+		$user_permissions 	= array();
+		$note				= (object) array( 'ID' => $post_id, 'post_content' => '' );
+		$note_meta			= apply_filters( 'wpdn_new_note_meta', array(
 			'color'			=> '#ffffff',
 			'color_text'	=> 'white',
 			'visibility'	=> 'Everyone',

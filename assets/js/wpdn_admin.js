@@ -7,7 +7,7 @@ jQuery( document ).ready( function($) {
 	// Add todo item
 	$( 'body, .list-item-content' ).on( 'keydown', '.add-list-item', function( e ) {
 
-		if( e.keyCode == 13 && $( this ).val() != '' ) {
+		if ( e.keyCode == 13 && $( this ).val() != '' ) {
 
 			var post_id 	= $( this ).closest( ".postbox" ).attr( 'id' );
 			var list_item 	= '<div class="list-item"><div class="dashicons dashicons-menu wpdn-note-sortable"></div><input type="checkbox"><span class="list-item-content" contenteditable="true">' + $( this ).val() + '</span><div class="delete-item dashicons dashicons-no-alt"></div></div>';
@@ -222,6 +222,7 @@ jQuery( document ).ready( function($) {
 			update: function( event, ui ) {
 				$( this ).trigger( 'wpdn-update', this );
 			},
+			connectWith: ['.wp-dashboard-note'],
 			axis: 'y'
 		});
 	})
