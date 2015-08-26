@@ -300,10 +300,11 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 /****************************
  * Template
 ****************************/
-[data-color-text=template] {
+/*
+[data-color-text=template] {
 	color: inherit;
 }
-[data-color-text=template] .wpdn-note-sortable {
+[data-color-text=template] .wpdn-note-sortable {
 	color: inherit;
 }
 [data-color-text=template] .wpdn-add-item {
@@ -342,7 +343,7 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 [data-color-text=template] .saving-icon {
 	color: inherit;
 }
-
+*/
 
 
 /****************************

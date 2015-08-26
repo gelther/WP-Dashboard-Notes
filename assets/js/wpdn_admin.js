@@ -263,7 +263,9 @@ jQuery( document ).ready( function($) {
 	// Close visibility settings on esc
 	$( 'body' ).on( 'keydown', 'div', function( e ) {
 		if ( e.keyCode == 27 ) {
+// 			$( '.postbox' ).removeClass( 'open-visibility-settings' );
 			$( '.postbox' ).removeClass( 'open-visibility-settings' );
+			$( '.postbox' ).find( '.visibility-settings' ).removeClass( 'open' ).addClass( 'closed' );
 		}
 	});
 
