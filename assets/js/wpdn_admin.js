@@ -221,6 +221,7 @@ jQuery( document ).ready( function($) {
 			update: function( event, ui ) {
 				$( this ).trigger( 'wpdn-update', this );
 			},
+			connectWith: ['.wp-dashboard-note'],
 			axis: 'y'
 		});
 	})
