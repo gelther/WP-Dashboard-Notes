@@ -1,10 +1,10 @@
 === WP Dashboard Notes ===
 Contributors: sormano
-Donate link: http://www.jeroensormani.com/donate/
+Donate link: http://jeroensormani.com/donate/
 Tags: note, notes, dashboard notes, wordpress notes, admin note, private note, post it, notification, collaboration, workflow, to do list, note list, note widget
 Requires at least: 3.8
-Tested up to: 4.1
-Stable tag: 1.0.5
+Tested up to: 4.3
+Stable tag: 1.0.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,10 @@ function wpdn_add_style() {
 3. Normal white note
 
 == Changelog ==
+
+= 1.0.6 - 26/08/2015 =
+
+* Improvement - Optimize JavaScripts and stylesheets
 
 = 1.0.5 - 24/01/2015 =
 
