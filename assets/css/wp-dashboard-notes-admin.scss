@@ -163,11 +163,13 @@ h3.hndle:hover .dashicons {
 	background: rgba(76, 76, 76, 0.9);
 	position: absolute;
 	left: 0px;
-	top: 100%;
+	top: 1.6em;
 	padding: 5px;
 	border-radius: 4px;
 	font-size: 12px;
 	z-index: 99;
+	min-width: 55px;
+	text-align: center;
 }
 .link-hover a {
 	color: white;
@@ -300,10 +302,10 @@ span.wpdn-color-note:hover .wpdn-color-palette {
 /****************************
  * Template
 ****************************/
-[data-color-text=template] {
+[data-color-text=template] {
 	color: inherit;
 }
-[data-color-text=template] .wpdn-note-sortable {
+[data-color-text=template] .wpdn-note-sortable {
 	color: inherit;
 }
 [data-color-text=template] .wpdn-add-item {
