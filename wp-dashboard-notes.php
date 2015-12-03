@@ -1,12 +1,12 @@
 <?php
 /*
  * Plugin Name:		WP Dashboard Notes
- * Plugin URI:		http://www.jeroensormani.com
- * Donate link:		http://www.jeroensormani.com/donate/
+ * Plugin URI:		https://wordpress.org/plugins/wp-dashboard-notes/
+ * Donate link:		http://jeroensormani.com/donate/
  * Description:		Working in a team? Want to make notes? You can do just that with WP Dashboard Notes. Create beautiful notes with a nice user experience.
- * Version:			1.0.5
+ * Version:			1.0.6
  * Author:			Jeroen Sormani
- * Author URI:		http://www.jeroensormani.com/
+ * Author URI:		http://jeroensormani.com/
  * Text Domain:		wp-dashboard-notes
 */
 
@@ -31,7 +31,7 @@ class WP_Dashboard_Notes {
 	 * @since 1.0.3
 	 * @var string $version Plugin version number.
 	 */
-	public $version = '1.0.5';
+	public $version = '1.0.6';
 
 
 	/**
@@ -44,7 +44,7 @@ class WP_Dashboard_Notes {
 
 
 	/**
-	 * Instace of WP_Dashboard_Note.
+	 * Instace of WP_Dashboard_Notes.
 	 *
 	 * @since 1.0.0
 	 * @access private
@@ -126,7 +126,7 @@ class WP_Dashboard_Notes {
 		add_action( 'wp_dashboard_setup', array( $this, 'wpdn_init_dashboard_widget' ) );
 
 		// Enqueue scripts
-		add_action( 'admin_enqueue_scripts', array( $this, 'wpdn_admin_enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
 		// Make URLs clickable
 		add_action( 'wpdn_content', array( $this, 'wpdn_clickable_url' ) );
@@ -147,13 +147,13 @@ class WP_Dashboard_Notes {
 	 *
 	 * @since 1.0.0
 	 */
-	public function wpdn_admin_enqueue_scripts() {
+	public function admin_enqueue_scripts() {
 
 		// Javascript
-		wp_enqueue_script( 'wpdn_admin_js', plugin_dir_url( __FILE__ ) . 'assets/js/wpdn_admin.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version );
+		wp_enqueue_script( 'wpdn_admin_js', plugin_dir_url( __FILE__ ) . 'assets/js/wp-dashboard-notes-admin.min.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version );
 
 		// Stylesheet
-		wp_enqueue_style( 'wpdn_admin_css', plugin_dir_url( __FILE__ ) . 'assets/css/wpdn_admin.css', array( 'dashicons' ), $this->version );
+		wp_enqueue_style( 'wpdn_admin_css', plugin_dir_url( __FILE__ ) . 'assets/css/wp-dashboard-notes-admin.min.css', array( 'dashicons' ), $this->version );
 
 	}
 

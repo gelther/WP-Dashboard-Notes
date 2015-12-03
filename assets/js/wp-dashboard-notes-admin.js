@@ -230,14 +230,9 @@ jQuery( document ).ready( function($) {
 
 	// Open link box when hovering a link
 	$( '.wp-dashboard-note-wrap a' ).hover( function() {
-
-		var url = $( this ).attr( 'href' );
-		$( this ).append( '<span class="link-hover" contenteditable="false"><a href="' + url + '" target="_blank" contenteditable="false">Open link</a></span>' );
-
+		$( this ).append( '<span class="link-hover" contenteditable="false"><a href="' + $( this ).attr( 'href' ) + '" target="_blank" contenteditable="false">Open link</a></span>' );
 	}, function() {
-
 		$( '.link-hover' ).remove();
-
 	});
 
 	// Prevent background color and other style from copying from one note to the other
