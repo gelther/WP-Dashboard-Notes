@@ -137,9 +137,6 @@ class WP_Dashboard_Notes {
 		// Make URLs clickable
 		add_action( 'wpdn_content', array( $this, 'wpdn_clickable_url' ) );
 
-		// Add note button
-		add_filter( 'manage_dashboard_columns', array( $this, 'wpdn_dashboard_columns' ) );
-
 		// Load textdomain
 		load_plugin_textdomain( 'wp-dashboard-notes', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
@@ -171,7 +168,7 @@ class WP_Dashboard_Notes {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Array List of all published notes.
+	 * @return array Array List of all published notes.
 	 */
 	public function wpdn_get_notes() {
 
@@ -196,10 +193,12 @@ class WP_Dashboard_Notes {
 
 		$note_meta = get_post_meta( $note_id, '_note', true );
 
-		if ( ! isset( $note_meta['note_type'] ) )	{ $note_meta['note_type']	= 'regular'; }
-		if ( ! isset( $note_meta['color'] ) )		{ $note_meta['color']		= '#ffffff'; }
-		if ( ! isset( $note_meta['visibility'] ) )	{ $note_meta['visibility']	= 'public'; }
-		if ( ! isset( $note_meta['color_text'] ) )	{ $note_meta['color_text']	= 'white'; }
+		$note_meta = wp_parse_args( $note_meta, array(
+			'note_type'  => 'regular',
+			'color'      => '#ffffff',
+			'visibility' => 'public',
+			'color_text' => 'white',
+		) );
 
 		return apply_filters( 'wpdn_note_meta', $note_meta );
 
@@ -294,31 +293,6 @@ class WP_Dashboard_Notes {
 	public function wpdn_clickable_url( $content ) {
 
 		return make_clickable( $content );
-
-	}
-
-
-	/**
-	 * Add button.
-	 *
-	 * Adds a 'Add note' button to the 'Screen Options' tab.
-	 * Triggered via jQuery.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @global	object	$current_screen	Information about current screen.
-	 *
-	 * @param	array	$columns	Array of columns within the screen options tab.
-	 * @return	array				Array of columns within the screen options tab.
-	 */
-	public function wpdn_dashboard_columns( $columns ) {
-
-		global $current_screen;
-
-		if ( $current_screen->id ) :
-			$columns['add_note'] = __( 'Add note', 'wp-dashboard-notes' );
-		endif;
-		return $columns;
 
 	}
 
