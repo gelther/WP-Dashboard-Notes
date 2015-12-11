@@ -110,6 +110,12 @@ class WP_Dashboard_Notes {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpdn-ajax.php';
 		$this->ajax = new WPDN_Ajax();
 
+		/**
+		 * Admin class.
+		 */
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpdn-admin.php';
+		$this->admin= new WPDN_Admin();
+
 	}
 
 

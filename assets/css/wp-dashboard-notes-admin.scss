@@ -138,14 +138,14 @@ input[type=text].add-list-item:-ms-input-placeholder {
 	-o-user-select: text;
 	user-select: text;
 }
-h3.hndle .wpdn-edit-title {
+.hndle .wpdn-edit-title {
 	display: none;
 	height: 19px;
 	color: #222;
 	cursor: pointer;
 	margin-left: 5px;
 }
-h3.hndle:hover .dashicons {
+.hndle:hover .dashicons {
 	display: inline-block;
 }
 [id^=note_] .handlediv {
@@ -190,26 +190,6 @@ h3.hndle:hover .dashicons {
 	font-size: 13px;
 }
 
-/* Add button screen options */
-[for=add_note-hide] {
-	float: right;
-	padding-left: 10px;
-	margin-left: 2px;
-}
-[for=add_note-hide] input {
-	display: none;
-}
-[for=add_note-hide]::before {
-	content: "\f132";
-	font-family: dashicons;
-	vertical-align: middle;
-	font-size: 18px;
-	margin-right: 5px;
-}
-[for=add_note-hide]:hover {
-	color: #fff;
-	background: #333;
-}
 /* Hide pencil at screen options titles */
 .metabox-prefs .wpdn-edit-title.dashicons-edit {
 	display: none;

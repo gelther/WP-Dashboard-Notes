@@ -139,17 +139,19 @@ class WPDN_Ajax {
 		$note_meta = apply_filters( 'wpdn_new_note_meta', $note_meta );
 		update_post_meta( $post_id, '_note', $note_meta );
 
+		$title_tag = version_compare( get_bloginfo( 'version' ), '4.4', '>=' ) ? 'h2' : 'h3';
+
 		ob_start(); ?>
 
 		<div id='note_<?php echo $post_id; ?>' class='postbox'>
 			<div class='handlediv' title='Click to toggle'><br></div>
-			<h3 class="hndle">
+			<<?php echo $title_tag; ?> class="hndle">
 				<span>
 					<span contenteditable="true" class="wpdn-title"><?php _e( 'New note', 'wp-dashboard-notes' ); ?></span>
 					<div class="wpdn-edit-title dashicons dashicons-edit"></div>
 					<span class="status"></span>
 				</span>
-			</h3>
+			</<?php echo $title_tag; ?>>
 
 			<div class='inside'>
 
