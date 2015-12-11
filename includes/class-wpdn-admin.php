@@ -37,6 +37,13 @@ class WPDN_Admin {
 	 */
 	public function admin_bar_add_note( &$wp_admin_bar ) {
 
+		$screen = get_current_screen();
+
+		// Only show on dashboard
+		if ( 'dashboard' !== $screen->id ) {
+			return;
+		}
+
 		$wp_admin_bar->add_menu( array(
 			'id'     => 'wpdn-add-note',
 			'parent' => 'top-secondary',
