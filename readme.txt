@@ -4,7 +4,7 @@ Donate link: http://jeroensormani.com/donate/
 Tags: note, notes, dashboard notes, wordpress notes, admin note, private note, post it, notification, collaboration, workflow, to do list, note list, note widget
 Requires at least: 3.8
 Tested up to: 4.4
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,7 +31,7 @@ Working with multiple persons on a website? Want to make notes? You can do just 
 
 A new note can be added in two ways.
 
-- Open 'Screen Options' on your dashboard, in the right corner you'll find a button called 'Add note'.
+- There is a 'Add note' button is located in the top admin bar
 - Or you can add a new note from within an existing note. When hovering over a note there will show an black bar at the bottom of that note. There is an '+' within that bar where you can add a new note.
 
 = Can I change the colors =
@@ -139,6 +139,12 @@ function wpdn_add_style() {
 3. Normal white note
 
 == Changelog ==
+
+= 1.0.7 - 11/12/2015 =
+
+* Fix/Improvement - Move 'Add note' button to the admin bar
+* Add - Full WP 4.4 compatibility
+* Improvement - Improve some JS
 
 = 1.0.6 - 26/08/2015 =
 
