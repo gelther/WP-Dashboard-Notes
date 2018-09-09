@@ -267,7 +267,10 @@ class WP_Dashboard_Notes {
 
 		// Inline styling required for note depending colors.
 		?><style>
-			#note_<?php echo $note->ID; ?> { background-color: <?php echo $note_meta['color']; ?>; }
+			#note_<?php echo $note->ID; ?> {
+                background-color: <?php echo $note_meta['color']; ?>;
+                word-wrap: break-word;
+            }
 			#note_<?php echo $note->ID; ?> .hndle { border: none; }
 		</style><?php
 
